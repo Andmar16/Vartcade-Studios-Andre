@@ -67,10 +67,23 @@ namespace TDTS.UI
 
             EnsureCameraAndEventSystem();
             Transform canvas = SkyCanvas(transform);
+            // The same animated environment as the Main Menu (wireframes 01 / 02)
+            MenuBackground background = MenuBackground.Create(canvas);
+            Puppet.Create(background.Foreground, new Vector2(0.945f, 0.105f), 1, 300f);
             BuildHeader(canvas);
             BuildJoinPanel(canvas);
             BuildTablePanel(canvas);
             BuildStatusBar(canvas);
+
+            // Poster-style button labels: Anton, cream on dark buttons
+            foreach (Button button in canvas.GetComponentsInChildren<Button>(true))
+            {
+                TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>(true);
+                if (label == null) continue;
+                SundownFonts.UseTitle(label);
+                label.characterSpacing = 3f;
+                label.color = button.colors.normalColor.grayscale > 0.5f ? UITheme.Charcoal : UITheme.Cream;
+            }
             ShowStatus("Host a table, or type the code a friend gives you.");
 
             Refresh();
@@ -228,17 +241,18 @@ namespace TDTS.UI
         {
             var title = NewText("Title", canvas, 58, FontStyles.Bold, TextAlignmentOptions.Center,
                 new Vector2(0f, 1f), Vector2.one, new Vector2(48f, -128f), new Vector2(-48f, -44f));
-            SundownFonts.UseTitle(title).text = "TEN DAYS TO SUNDOWN";
+            SundownFonts.UseTitle(title).text = $"TEN DAYS <color={UITheme.GoldHex}>TO SUNDOWN</color>";
+            title.color = UITheme.Cream;
             title.characterSpacing = 10f;
 
             var subtitle = NewText("Subtitle", canvas, 22, FontStyles.Bold, TextAlignmentOptions.Center,
                 new Vector2(0f, 1f), Vector2.one, new Vector2(48f, -168f), new Vector2(-48f, -128f));
             subtitle.text = "ONLINE  TABLE";
             subtitle.characterSpacing = 24f;
-            subtitle.color = AccentColor;
+            subtitle.color = UITheme.Gold;
 
             var back = NewRect("Back", canvas, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(40f, -96f), new Vector2(220f, -44f));
-            joinButtons.Add(MakeButton(back, "‹  Main menu", ButtonColor, BackToMenu, 20));
+            joinButtons.Add(MakeButton(back, "‹  Main menu", UITheme.Charcoal, BackToMenu, 20));
         }
 
         private void BuildJoinPanel(Transform canvas)
@@ -251,7 +265,7 @@ namespace TDTS.UI
             nameField = NewInput(column, "Type your name", 16, 68f);
             nameField.text = SessionManager.SavedPlayerName;
 
-            joinButtons.Add(Row(column, 72f, r => MakeButton(r, "Host a new table", AccentColor, Host, 26)));
+            joinButtons.Add(Row(column, 72f, r => MakeButton(r, "Host a new table", UITheme.Brick, Host, 30)));
 
             OrDivider(column);
 
@@ -263,12 +277,12 @@ namespace TDTS.UI
                 codeField.textComponent.fontStyle = FontStyles.Bold | FontStyles.UpperCase;
                 codeField.textComponent.characterSpacing = 12f;
                 codeField.onSubmit.AddListener(_ => Join());
-                joinButtons.Add(MakeButton(r, "Join", ButtonColor, Join, 24));
+                joinButtons.Add(MakeButton(r, "Join", UITheme.TealDark, Join, 28));
                 return null;
             });
 
             Spacer(column, 4f);
-            joinButtons.Add(Row(column, 52f, r => MakeButton(r, "Play offline with bots", SeatColor, PlayOffline, 20)));
+            joinButtons.Add(Row(column, 52f, r => MakeButton(r, "Play offline with bots", UITheme.Charcoal, PlayOffline, 22)));
         }
 
         private void BuildTablePanel(Transform canvas)
@@ -288,7 +302,7 @@ namespace TDTS.UI
                     Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
                 codeText.color = AccentColor;
                 codeText.characterSpacing = 22f;
-                MakeButton(r, "Copy", ButtonColor, CopyCode, 22);
+                MakeButton(r, "Copy", UITheme.TealDark, CopyCode, 24);
                 return null;
             });
 
@@ -304,8 +318,8 @@ namespace TDTS.UI
             Spacer(column, 6f);
             Row<object>(column, 68f, r =>
             {
-                joinButtons.Add(MakeButton(r, "Leave", ButtonColor, Leave, 22));
-                startButton = MakeButton(r, "Start game", AccentColor, () => sessions.StartGame(), 26);
+                joinButtons.Add(MakeButton(r, "Leave", UITheme.Charcoal, Leave, 24));
+                startButton = MakeButton(r, "Start game", UITheme.Brick, () => sessions.StartGame(), 28);
                 startButton.GetComponent<LayoutElement>().flexibleWidth = 2.4f;
                 startLabel = startButton.GetComponentInChildren<TextMeshProUGUI>();
 

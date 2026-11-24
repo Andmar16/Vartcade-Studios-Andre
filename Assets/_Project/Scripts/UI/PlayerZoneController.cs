@@ -109,16 +109,23 @@ namespace TDTS.UI
             // Your pick for Trade / Steal wins over the "their turn" colour
             if (background != null)
                 background.color = GameView.Current.SelectedTarget == p ? Glass(selectedColor)
-                    : active ? Glass(activeColor)
+                    : active ? Glass(UITheme.Orange) // the active player's name plate turns orange (wireframe 05-2)
                     : normalColor;
         }
 
         /// <summary>Their puppet, numbered by their seat in the turn order.</summary>
         private void ShowPuppet(int seat)
         {
-            if (puppetWindow == null || seat == puppetSeat) return;
+            if (seat == puppetSeat) return;
             if (puppet != null) Destroy(puppet.gameObject);
             puppetSeat = seat;
+            // Seated behind the table in the room (wireframe 03-2); a small bust if there's no room
+            if (TableRoom.Current != null)
+            {
+                puppet = TableRoom.Current.SeatPuppet(seatsAfterYou, seat);
+                return;
+            }
+            if (puppetWindow == null) return;
             puppet = Puppet.Create(puppetWindow, new Vector2(0.5f, 0f), seat, 130f);
             ((RectTransform)puppet.transform).anchoredPosition = new Vector2(0f, -64f);
         }
@@ -148,16 +155,19 @@ namespace TDTS.UI
             RectTransform text = label.rectTransform;
             text.anchorMin = new Vector2(0f, split);
             text.anchorMax = Vector2.one;
-            text.offsetMin = new Vector2(84f, 0f); // room for their puppet on the left
+            text.offsetMin = new Vector2(TableRoom.Current != null ? 10f : 84f, 0f); // room for a bust when there's no room
             text.offsetMax = new Vector2(-10f, -8f);
 
-            // Wireframe 03-2: a placeholder puppet bust for this seat, in a round window
-            puppetWindow = SundownArt.NewRect("PuppetWindow", transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(10f, -76f), new Vector2(74f, -12f));
-            Image window = puppetWindow.gameObject.AddComponent<Image>();
-            window.sprite = SundownArt.CircleSprite();
-            window.color = UITheme.SkyMid;
-            window.raycastTarget = false;
-            puppetWindow.gameObject.AddComponent<Mask>();
+            // Wireframe 03-2: without the room, a small puppet bust in a round window
+            if (TableRoom.Current == null) puppetWindow = SundownArt.NewRect("PuppetWindow", transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(10f, -76f), new Vector2(74f, -12f));
+            if (puppetWindow != null)
+            {
+                Image window = puppetWindow.gameObject.AddComponent<Image>();
+                window.sprite = SundownArt.CircleSprite();
+                window.color = UITheme.SkyMid;
+                window.raycastTarget = false;
+                puppetWindow.gameObject.AddComponent<Mask>();
+            }
             label.enableAutoSizing = true;
             label.fontSizeMin = 14f;
             label.fontSizeMax = 32f;

@@ -26,6 +26,7 @@ namespace TDTS.UI
 
         private void Awake()
         {
+            gameObject.AddComponent<TableRoom>(); // wireframe 03: the bunker room and the table layout
             gameObject.AddComponent<TableBackdrop>();
             // The dial lives in the old wheel's slot and shows itself, covered until the Rondo wakes
             if (rondoWheel != null)
@@ -75,7 +76,9 @@ namespace TDTS.UI
                 CancelInvoke(nameof(Refresh));
                 Invoke(nameof(Refresh), showOverlayAt - Time.time);
             }
-            if (blackoutOverlay != null) blackoutOverlay.SetActive(hidden);
+            // TableHud's Night blackout covers this now; it never names who is acting (wireframe 05-7)
+            if (blackoutOverlay != null) blackoutOverlay.SetActive(false);
+            hidden = false;
             if (hidden && overlayLabel != null)
             {
                 string phase = state == GameState.NightPhase ? "Night" : "Blackout";

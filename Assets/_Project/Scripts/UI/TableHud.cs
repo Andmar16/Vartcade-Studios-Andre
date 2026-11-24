@@ -111,6 +111,7 @@ namespace TDTS.UI
 
             RefreshTracker();
             tracker.gameObject.SetActive(!sundown);
+            portrait.gameObject.SetActive(!sundown);
             if (portraitPuppet != null) portraitPuppet.EyesClosed = view.EyesClosed && !view.IsLocalTurn;
 
             // Waiting banner: someone else's Day turn
@@ -154,13 +155,19 @@ namespace TDTS.UI
         /// </summary>
         private void BuildTracker()
         {
-            tracker = NewRect("KindsTracker", canvas, Vector2.zero, Vector2.zero, new Vector2(250f, 266f), new Vector2(1150f, 340f));
+            // In the room layout (wireframe 03) it sits top-left under the Day counter; otherwise above your hand
+            bool room = TableRoom.Current != null;
+            tracker = room
+                ? NewRect("KindsTracker", canvas, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -208f), new Vector2(924f, -134f))
+                : NewRect("KindsTracker", canvas, Vector2.zero, Vector2.zero, new Vector2(250f, 266f), new Vector2(1150f, 340f));
             var edge = NewRect("Edge", tracker, Vector2.zero, Vector2.one, new Vector2(-3f, -3f), new Vector2(3f, 3f));
             trackerEdge = Rounded(edge.gameObject.AddComponent<Image>(), UITheme.Gold, 14);
             trackerEdge.raycastTarget = false;
-            Rounded(tracker.gameObject.AddComponent<Image>(), UITheme.WithAlpha(UITheme.Charcoal, 0.94f), 14).raycastTarget = false;
+            // The face is a child drawn after the edge, so the edge only shows as a border
+            var face = NewRect("Face", tracker, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            Rounded(face.gameObject.AddComponent<Image>(), UITheme.WithAlpha(UITheme.Charcoal, 0.96f), 14).raycastTarget = false;
 
-            BuildPortrait(tracker);
+            BuildPortrait(room ? null : tracker);
 
             var title = NewText("Title", tracker, 18, FontStyles.Bold, TextAlignmentOptions.BottomLeft,
                 new Vector2(0f, 0.5f), new Vector2(0f, 1f), new Vector2(84f, 0f), new Vector2(250f, -6f));
@@ -245,10 +252,13 @@ namespace TDTS.UI
 
         // ---------- 03-11 Portrait ----------
 
-        /// <summary>03-11: your puppet's head in a small gold ring at the left end of the strip.</summary>
+        /// <summary>03-11: your puppet's head in a gold ring, bottom-left (or small, at the left end of the strip).</summary>
         private void BuildPortrait(RectTransform strip)
         {
-            portrait = NewRect("Portrait", strip, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(10f, -30f), new Vector2(70f, 30f));
+            bool big = strip == null;
+            portrait = big
+                ? NewRect("Portrait", canvas, Vector2.zero, Vector2.zero, new Vector2(44f, 44f), new Vector2(214f, 214f))
+                : NewRect("Portrait", strip, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(10f, -30f), new Vector2(70f, 30f));
             var ring = NewRect("Ring", portrait, Vector2.zero, Vector2.one, new Vector2(-4f, -4f), new Vector2(4f, 4f));
             Image ringImage = ring.gameObject.AddComponent<Image>();
             ringImage.sprite = CircleSprite();
@@ -265,16 +275,25 @@ namespace TDTS.UI
             int seat = 1;
             var players = view.Players;
             for (int i = 0; i < players.Count; i++) if (players[i] == view.LocalPlayer) seat = i + 1;
-            portraitPuppet = Puppet.Create(window, new Vector2(0.5f, 0f), seat, 128f);
-            ((RectTransform)portraitPuppet.transform).anchoredPosition = new Vector2(0f, -67f);
+            portraitPuppet = Puppet.Create(window, new Vector2(0.5f, 0f), seat, big ? 360f : 128f);
+            ((RectTransform)portraitPuppet.transform).anchoredPosition = new Vector2(0f, big ? -190f : -67f);
+            if (!big) return;
+
+            var tag = NewRect("You", portrait, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(-40f, -16f), new Vector2(40f, 18f));
+            Rounded(tag.gameObject.AddComponent<Image>(), UITheme.Gold, 6).raycastTarget = false;
+            var you = SundownFonts.UseTitle(NewText("Label", tag, 22, FontStyles.Normal, TextAlignmentOptions.Center, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero));
+            you.text = "YOU";
+            you.color = UITheme.Charcoal;
         }
 
         // ---------- 05-1 Whose turn banner ----------
 
         private void BuildWaiting()
         {
-            // Over the action bar, which is greyed out anyway while it isn't your turn
-            var rect = NewRect("WaitingBanner", canvas, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-740f, 122f), new Vector2(-96f, 232f));
+            // 05-1: top centre under the Day bar in the room layout; otherwise over the idle action bar
+            var rect = TableRoom.Current != null
+                ? NewRect("WaitingBanner", canvas, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(-400f, -228f), new Vector2(400f, -128f))
+                : NewRect("WaitingBanner", canvas, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-740f, 122f), new Vector2(-96f, 232f));
             waiting = rect.gameObject.AddComponent<CanvasGroup>();
             waiting.blocksRaycasts = false;
             waiting.alpha = 0f;

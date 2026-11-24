@@ -103,9 +103,9 @@ namespace TDTS.UI
             bool canEndTurn = !gm.LimitActions;
 
             // A trade offered to you replaces the Day buttons until you answer.
-            // There's no Scavenge button: tap the draw pile instead.
+            // Wireframe 03-12: Scavenge is a button again (tapping the draw pile still works too).
             tradeButton.gameObject.SetActive(!offeredToMe);
-            scavengeButton.gameObject.SetActive(false);
+            scavengeButton.gameObject.SetActive(!offeredToMe);
             playCardButton.gameObject.SetActive(!offeredToMe);
             skipButton.gameObject.SetActive(canEndTurn);
             if (acceptButton != null) acceptButton.gameObject.SetActive(offeredToMe);
@@ -116,18 +116,44 @@ namespace TDTS.UI
             }
 
             tradeButton.interactable = day;
+            scavengeButton.interactable = day && !tradingOnly && gm.DeckCount > 0;
             playCardButton.interactable = day && !tradingOnly && !PickedCardIsUnplayable(gm, true);
+
+            // Each button says what it does underneath its name (wireframe 03-12)
+            Hint(tradeButton, "Trade", "Pick a card + player");
+            Hint(scavengeButton, "Scavenge", gm.DeckCount > 0 ? "Draw 1 card" : "The pile is empty");
+            Hint(playCardButton, "Play card", PickedMorningName(gm) ?? "Pick an unused Morning card");
+            if (nightPlayButton != null) Hint(nightPlayButton, "Play card", "A peeked Night card");
+            if (peekButton != null) Hint(peekButton, "Peek", gm.PeeksThisTurn == 0 ? "Required: look at a back" : "Look at another back");
 
             // One Steal or Swap a night
             stealButton.interactable = night && !gm.StoleOrSwappedThisTurn;
             swapButton.interactable = night && !gm.StoleOrSwappedThisTurn;
             // Disabled buttons say why (wireframe 04-5)
-            string reason = night && gm.StoleOrSwappedThisTurn ? "\n<size=60%>One per Night</size>" : "";
-            if (stealLabel != null) stealLabel.text = "Steal" + reason;
-            if (swapLabel != null) swapLabel.text = "Swap" + reason;
+            bool usedUp = night && gm.StoleOrSwappedThisTurn;
+            Hint(stealButton, "Steal", usedUp ? "One per Night" : "Pick one of their cards");
+            Hint(swapButton, "Swap", usedUp ? "One per Night" : "Yours for a random one of theirs");
             skipButton.interactable = night && gm.PeeksThisTurn > 0;
             if (nightPlayButton != null) nightPlayButton.interactable = night && !PickedCardIsUnplayable(gm, false);
             if (peekButton != null) peekButton.interactable = night && !PickedCardIsPeeked(gm);
+        }
+
+        private static void Hint(Button button, string name, string hint)
+        {
+            var label = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (label == null) return;
+            string text = $"{name}\n<size=46%>{hint}</size>";
+            if (label.text != text) label.text = text;
+        }
+
+        /// <summary>The name of the picked card when it's a Morning card you can still play.</summary>
+        private static string PickedMorningName(IGameView gm)
+        {
+            var hand = gm.LocalPlayer?.hand;
+            int index = gm.SelectedCardIndex;
+            if (hand == null || index < 0 || index >= hand.Count) return null;
+            var card = hand[index];
+            return card.HasMorningFront && !card.frontUsed ? card.FrontName : null;
         }
 
         /// <summary>You already know the back of the card you picked (tap it at Night to see it again).</summary>
@@ -176,10 +202,11 @@ namespace TDTS.UI
             if (label == null) return;
             // Charcoal text on the light gold and orange buttons, cream on the dark ones
             label.color = color.grayscale > 0.5f ? UITheme.Charcoal : UITheme.Cream;
-            label.fontStyle = FontStyles.Bold;
+            SundownFonts.UseTitle(label); // Anton, like the wireframe's buttons
             label.enableAutoSizing = true;
             label.fontSizeMin = 14f;
-            label.fontSizeMax = 26f;
+            label.fontSizeMax = 34f;
+            label.lineSpacing = -20f;
 
             // The scene's labels were placed by hand; centre every one in its button
             RectTransform rect = label.rectTransform;

@@ -126,6 +126,7 @@ namespace TDTS.UI
             var rect = (RectTransform)slot.root.transform;
             rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
             rect.pivot = new Vector2(0.5f, 0.5f);
+            if (TableRoom.Current != null) rect.sizeDelta = new Vector2(132f, 184f); // wireframe 06: hand cards keep the 0.7 ratio
 
             typeLabels.Add(null);
             peekedMarks.Add(null);
@@ -178,12 +179,17 @@ namespace TDTS.UI
             if (count == 0) return;
             float width = ((RectTransform)cards[0].root.transform).rect.width;
             float room = ((RectTransform)transform).rect.width;
-            float step = count > 1 ? Mathf.Min(width + gap, (room - width) / (count - 1)) : 0f;
+            float step = count > 1 ? Mathf.Min(width * 0.82f, (room - width) / (count - 1)) : 0f;
 
+            // Wireframe 03-9: a fan along the bottom, UNO style, centred, the middle card highest
+            float handWidth = width + (count - 1) * step;
+            float start = (room - handWidth) / 2f + width / 2f;
             for (int i = 0; i < count; i++)
             {
                 var rect = (RectTransform)cards[i].root.transform;
-                rect.anchoredPosition = new Vector2(width / 2f + i * step, 0f);
+                float fromMiddle = i - (count - 1) / 2f;
+                rect.anchoredPosition = new Vector2(start + i * step, -Mathf.Abs(fromMiddle) * Mathf.Abs(fromMiddle) * 4f + 22f); // a little up, so no card is cut off
+                rect.localEulerAngles = new Vector3(0f, 0f, -fromMiddle * Mathf.Min(5f, 22f / Mathf.Max(1, count)));
                 rect.SetSiblingIndex(i);
             }
 
