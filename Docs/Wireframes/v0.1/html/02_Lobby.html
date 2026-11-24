@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>02 Lobby</title>
+<style>@font-face{font-family:Anton;src:url("../../../../Assets/_Project/Resources/Fonts/Anton.ttf")}@font-face{font-family:Roboto;font-weight:400;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Regular.ttf")}@font-face{font-family:Roboto;font-weight:500 700;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Bold.ttf")}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Roboto:wght@400;500;700&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B53B32}a:hover{color:#632B29}
+.co{position:absolute;width:30px;height:30px;border-radius:50%;background:#E5A836;color:#13191D;border:3px solid #13191D;font:700 15px/24px Roboto,sans-serif;text-align:center;box-sizing:border-box;z-index:50;box-shadow:0 0 0 2px #E5A836}
+.nb{flex:none;width:26px;height:26px;border-radius:50%;background:#E5A836;color:#13191D;border:2px solid #13191D;font:700 13px/22px Roboto,sans-serif;text-align:center;box-sizing:border-box}
+.btn{font:400 22px/1 Anton,sans-serif;letter-spacing:1px;text-transform:uppercase;border:3px solid #13191D;border-radius:6px;padding:12px 18px;cursor:pointer;box-shadow:0 4px 0 #13191D}
+.lbl{font:500 11px/1.2 Roboto,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.hand{font-family:'Special Elite',monospace}
+</style>
+
+</head>
+<body>
+
+<div style="width: 1840px; height: 1240px; box-sizing: border-box; background: #E9E2D6; font-family: Roboto, sans-serif; color: #13191D; display: flex; gap: 0; overflow: hidden">
+<div style="width: 1280px; flex: none; display: flex; flex-direction: column">
+<div style="height: 40px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: #13191D; color: #F4E9D8">
+<div style="font: 400 18px/1 Anton, sans-serif; letter-spacing: 1px">02 LOBBY</div>
+<div class="lbl" style="color: #E5A836">Scene: Lobby · 1280 x 720 (16:9) · wireframe v0.1</div>
+</div>
+<div style="position: relative; width: 1280px; height: 720px; flex: none; overflow: hidden; background: #121420">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #121420 0%, #1E1A22 60%, #2A1E1A 100%)"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 720px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 120px, rgba(0,0,0,.1) 120px 123px)"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 170px; background: #17110F; border-top: 6px solid #0E0A0B"></div>
+<div style="position: absolute; left: 40px; top: 30px; display: flex; flex-direction: column; gap: 4px; z-index: 10">
+<div class="lbl" style="color: #E5A836">Online game · Host</div>
+<div style="font: 400 44px/1 Anton, sans-serif; color: #F4E9D8; letter-spacing: 1px">WAITING ROOM</div>
+</div>
+<div style="position: absolute; left: 440px; top: 40px; width: 400px; padding: 16px 20px; box-sizing: border-box; background: #F4E9D8; border: 4px solid #13191D; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; z-index: 10">
+<div style="display: flex; flex-direction: column; gap: 4px"><div class="lbl" style="color: #B53B32">Join code</div><div style="font: 400 48px/1 Anton, sans-serif; letter-spacing: 8px">K7Q 42X</div></div>
+<button style="padding: 10px 14px; border-radius: 6px; background: #13191D; color: #F4E9D8; border: none; font: 700 13px/1 Roboto, sans-serif; cursor: pointer">Copy</button>
+</div>
+<div style="position: absolute; right: 40px; top: 40px; padding: 14px 18px; background: rgba(19,25,29,.92); border: 2px solid #E5A836; border-radius: 10px; display: flex; flex-direction: column; gap: 6px; z-index: 10">
+<div class="lbl" style="color: #E5A836">This table</div>
+<div style="font: 400 26px/1 Anton, sans-serif; color: #F4E9D8">4 PLAYERS · 2 BUNKER SEATS</div>
+<div style="font: 400 12px/1.3 Roboto, sans-serif; color: #B9AFA3">5 or 6 players = 3 seats</div>
+</div>
+<div style="position: absolute; left: 90px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="position: relative; width: 150px; height: 150px; border-radius: 12px; background: radial-gradient(circle at 50% 30%, #3A3640, #13191D); border: 3px solid #E5A836; overflow: hidden"><div style="position: absolute; right: 8px; top: 8px; padding: 3px 7px; border-radius: 4px; background: #E5A836; color: #13191D; font: 700 10px/1 Roboto, sans-serif; letter-spacing: 1px">HOST</div>
+<div style="position: absolute; left: 20px; top: 22px; width: 124px; height: 148px; transform: scale(0.85); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 56px; width: 104px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">01</div>
+</div>
+<div style="position: absolute; left: 30.0px; top: 0; width: 64px; height: 64px; border-radius: 48% 48% 46% 46%; background: #C48A5A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 64px; height: 26.88px; border-radius: 32.0px 32.0px 8px 8px; background: #5A3A20; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 17.92px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 38.4px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 24.32px; top: 46.08px; width: 16.64px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div></div>
+<div style="font: 700 14px/1 Roboto, sans-serif; color: #F4E9D8">You</div><div style="padding: 6px 10px; border-radius: 6px; background: #3E6B3A; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif; text-align: center; width: 150px; box-sizing: border-box">READY</div></div><div style="position: absolute; left: 280px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="position: relative; width: 150px; height: 150px; border-radius: 12px; background: radial-gradient(circle at 50% 30%, #3A3640, #13191D); border: 3px solid #E5A836; overflow: hidden">
+<div style="position: absolute; left: 20px; top: 22px; width: 94px; height: 140px; transform: scale(0.85); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">02</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #8A5A3A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #2A1A12; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 15.680000000000001px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 33.6px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div></div>
+<div style="font: 700 14px/1 Roboto, sans-serif; color: #F4E9D8">Player 2</div><div style="padding: 6px 10px; border-radius: 6px; background: #3E6B3A; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif; text-align: center; width: 150px; box-sizing: border-box">READY</div></div><div style="position: absolute; left: 470px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="position: relative; width: 150px; height: 150px; border-radius: 12px; background: radial-gradient(circle at 50% 30%, #3A3640, #13191D); border: 3px solid #E5A836; overflow: hidden"><div style="position: absolute; left: 8px; top: 8px; padding: 3px 7px; border-radius: 4px; background: #3B5F67; color: #F4E9D8; font: 700 10px/1 Roboto, sans-serif; letter-spacing: 1px">BOT</div>
+<div style="position: absolute; left: 20px; top: 22px; width: 124px; height: 148px; transform: scale(0.85); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 56px; width: 104px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">03</div>
+</div>
+<div style="position: absolute; left: 30.0px; top: 0; width: 64px; height: 64px; border-radius: 48% 48% 46% 46%; background: #E0B08A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 64px; height: 26.88px; border-radius: 32.0px 32.0px 8px 8px; background: #2A2A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 17.92px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 38.4px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 24.32px; top: 46.08px; width: 16.64px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div></div>
+<div style="font: 700 14px/1 Roboto, sans-serif; color: #F4E9D8">Bot: Human-like</div><div style="padding: 6px 10px; border-radius: 6px; background: #3E6B3A; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif; text-align: center; width: 150px; box-sizing: border-box">READY</div></div><div style="position: absolute; left: 660px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="position: relative; width: 150px; height: 150px; border-radius: 12px; background: radial-gradient(circle at 50% 30%, #3A3640, #13191D); border: 3px solid #E5A836; overflow: hidden"><div style="position: absolute; left: 8px; top: 8px; padding: 3px 7px; border-radius: 4px; background: #3B5F67; color: #F4E9D8; font: 700 10px/1 Roboto, sans-serif; letter-spacing: 1px">BOT</div>
+<div style="position: absolute; left: 20px; top: 22px; width: 94px; height: 140px; transform: scale(0.85); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">04</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #B98256; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #7A4A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 15.680000000000001px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 33.6px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div></div>
+<div style="font: 700 14px/1 Roboto, sans-serif; color: #F4E9D8">Bot: Aggressive</div><div style="padding: 6px 10px; border-radius: 6px; background: #3E6B3A; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif; text-align: center; width: 150px; box-sizing: border-box">READY</div></div><div style="position: absolute; left: 850px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="width: 150px; height: 150px; border-radius: 12px; border: 3px dashed #6A6058; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #B9AFA3">
+<div style="font: 400 26px/1 Anton, sans-serif">05</div><div style="font: 500 12px/1.2 Roboto, sans-serif">Waiting for player</div></div>
+<button style="width: 150px; padding: 8px; border-radius: 6px; background: #2B2F33; color: #F4E9D8; border: 2px solid #555; font: 700 12px/1 Roboto, sans-serif; cursor: pointer">+ Add bot</button></div><div style="position: absolute; left: 1040px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10"><div style="width: 150px; height: 150px; border-radius: 12px; border: 3px dashed #6A6058; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #B9AFA3">
+<div style="font: 400 26px/1 Anton, sans-serif">06</div><div style="font: 500 12px/1.2 Roboto, sans-serif">Waiting for player</div></div>
+<button style="width: 150px; padding: 8px; border-radius: 6px; background: #2B2F33; color: #F4E9D8; border: 2px solid #555; font: 700 12px/1 Roboto, sans-serif; cursor: pointer">+ Add bot</button></div>
+<div style="position: absolute; left: 40px; bottom: 40px; display: flex; gap: 14px; align-items: center; z-index: 10">
+<button class="btn" style="background: transparent; color: #F4E9D8; border-color: #6A6058; box-shadow: none; font-size: 18px">Leave</button>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 8px; background: rgba(19,25,29,.8); border: 2px solid #4A4A4A">
+<div class="lbl" style="color: #B9AFA3">Empty seats at start</div>
+<div style="display: flex; gap: 8px"><span style="padding: 5px 10px; border-radius: 4px; background: #E5A836; color: #13191D; font: 700 12px/1 Roboto, sans-serif">Fill with bots</span><span style="padding: 5px 10px; border-radius: 4px; background: #2B2F33; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">Leave empty</span></div>
+</div>
+</div>
+<div style="position: absolute; right: 40px; bottom: 40px; display: flex; gap: 14px; align-items: center; z-index: 10">
+<div style="font: 400 13px/1.3 Roboto, sans-serif; color: #B9AFA3; text-align: right">4 of 4 ready<br>Need at least 4 players</div>
+<button class="btn" style="background: #B53B32; color: #F4E9D8; font-size: 30px; padding: 14px 36px">Start game</button>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 520px; text-align: center; z-index: 10"><span class="hand" style="font-size: 17px; color: #F4E9D8; opacity: .8">"Only some of you are getting in. Smile anyway."</span></div>
+<div class="co" style="left: 420px; top: 30px">1</div><div class="co" style="left: 1220px; top: 30px">2</div><div class="co" style="left: 80px; top: 290px">3</div><div class="co" style="left: 460px; top: 290px">4</div><div class="co" style="left: 840px; top: 290px">5</div><div class="co" style="left: 30px; top: 600px">6</div><div class="co" style="left: 1220px; top: 600px">7</div><div class="co" style="left: 610px; top: 510px">8</div>
+</div>
+<div style="flex: 1 1 auto; box-sizing: border-box; padding: 20px 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font: 400 18px/1 Anton, sans-serif; letter-spacing: .5px">States, motion and platform</div>
+<div style="display: flex; gap: 28px"><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">States</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Seat: empty, joining (spinner), not ready, ready, bot, disconnected (greyed, &#x27;Reconnecting&#x27;).
+Start button: disabled (reason shown) or enabled (pulses gently once).</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Motion</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">A puppet pops into its seat when a player joins (scale 0.8 to 1 with a small bounce) and waves.
+Ready: puppet gives a thumbs up; seat border turns gold.</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Phone vs PC</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Phone: seats in one row of 6 small cards; join code and Start stay large.
+PC: same layout, more space between seats.</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Edge cases</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Host leaves: room closes, everyone returns to menu with a message.
+Wrong code: shake the field, &#x27;No game with that code&#x27;.</div>
+</div></div>
+</div>
+</div><div style="width: 560px; flex: none; height: 100%; box-sizing: border-box; padding: 28px 28px 24px; background: #F4E9D8; border-left: 4px solid #13191D; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div class="lbl" style="color: #B53B32">Notes for developers</div>
+<div style="font: 400 26px/1.1 Anton, sans-serif; letter-spacing: .5px">Lobby / waiting room</div>
+</div>
+
+<div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">1</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Join code</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">6 characters, grouped 3 + 3, no look-alike letters (no O/0, I/1). Copy button copies it and shows &#x27;Copied&#x27; for 2 s. Joiners type it on the menu modal.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController + SessionManager · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">2</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Table info</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Players and bunker seats update live as seats fill (4 players = 2 seats; 5 or 6 = 3 seats). This sets expectations before the game starts.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Should</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">3</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Seat card (player)</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Placeholder puppet with the jumpsuit number = seat number, name, READY state. Gold border when ready. Host badge on the host. Later shows the player&#x27;s avatar.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">4</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Seat card (bot)</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">BOT badge plus the bot style. Host can tap to change style or remove the bot.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController + BotController · Should</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">5</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Empty seat</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Dashed outline; host can add a bot here. Seats 5 and 6 only matter for 5 or 6 player tables.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">6</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Leave and fill rule</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Leave returns to the menu (confirm if host: the room closes). &#x27;Fill with bots&#x27; fills empty seats up to 4 at start, matching the current build.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">7</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Start game (host only)</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Disabled until at least 4 seats are filled and all humans are ready; the text beside it says why. Non-hosts see a Ready toggle here instead.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">8</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Flavor line</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Rotating dark-humor lines in Special Elite, 60 Seconds style. Changes every 6 s.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">LobbyController · Could</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

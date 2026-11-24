@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wireframes v0.1: read me</title>
+<style>@font-face{font-family:Anton;src:url("../../../../Assets/_Project/Resources/Fonts/Anton.ttf")}@font-face{font-family:Roboto;font-weight:400;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Regular.ttf")}@font-face{font-family:Roboto;font-weight:500 700;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Bold.ttf")}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Roboto:wght@400;500;700&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B53B32}a:hover{color:#632B29}
+.co{position:absolute;width:30px;height:30px;border-radius:50%;background:#E5A836;color:#13191D;border:3px solid #13191D;font:700 15px/24px Roboto,sans-serif;text-align:center;box-sizing:border-box;z-index:50;box-shadow:0 0 0 2px #E5A836}
+.nb{flex:none;width:26px;height:26px;border-radius:50%;background:#E5A836;color:#13191D;border:2px solid #13191D;font:700 13px/22px Roboto,sans-serif;text-align:center;box-sizing:border-box}
+.btn{font:400 22px/1 Anton,sans-serif;letter-spacing:1px;text-transform:uppercase;border:3px solid #13191D;border-radius:6px;padding:12px 18px;cursor:pointer;box-shadow:0 4px 0 #13191D}
+.lbl{font:500 11px/1.2 Roboto,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.hand{font-family:'Special Elite',monospace}
+</style>
+
+</head>
+<body>
+
+<div style="width: 1840px; height: 1080px; box-sizing: border-box; background: #E9E2D6; font-family: Roboto, sans-serif; color: #13191D; display: flex; gap: 0; overflow: hidden">
+<div style="width: 100%; height: 100%; box-sizing: border-box; padding: 40px 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; background: #F4E9D8">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div class="lbl" style="color: #B53B32">Vartcade Studio · Unity UI/UX polish · task W01</div>
+<div style="font: 400 64px/0.95 Anton, sans-serif; letter-spacing: 1px">TEN DAYS<br>TO SUNDOWN</div>
+<div style="font: 400 24px/1.1 Anton, sans-serif; color: #B53B32">WIREFRAMES v0.1: INITIAL IDEA DRAFT</div>
+<div style="font: 400 14px/1.5 Roboto, sans-serif">A first pass so the development team (Chua, Esteban) can see what the design team (Barros, Villa) has in mind. Colors are real; shapes, puppets and card art are placeholders. Every screen has numbered callouts that match the notes on its right.</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 2px solid #13191D; border-radius: 10px; background: #FBF6EE">
+<div class="lbl" style="color: #B53B32">How to read a board</div>
+<div style="display: flex; gap: 10px; align-items: center"><div class="nb">1</div><div style="font: 400 13px/1.4 Roboto, sans-serif">Gold number on the screen = a note with the same number on the right.</div></div>
+<div style="font: 400 13px/1.5 Roboto, sans-serif">Each note says what the element is, what it does, and the <b>script</b> that owns it, its <b>priority</b> (Must / Should / Could, same as the checklist) and its <b>motion</b>.</div>
+<div style="font: 400 13px/1.5 Roboto, sans-serif">The strip under each screen covers states, animation and phone vs PC.</div>
+<div style="font: 400 13px/1.5 Roboto, sans-serif; color: #632B29">Dashed red boxes are assumptions waiting on the open questions (D-Q1 to D-Q8).</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="lbl" style="color: #B53B32">Boards in this draft</div>
+<div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">01 Main Menu</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Animated environment, Tutorial button</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">02 Lobby</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Join code, seats, bots, ready</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">03 Table: Day, your turn</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">2.5D table, hand, HUD, actions</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">04 Table: Night, your turn</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Peek first, steal/swap, eyes closed</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">05 Waiting (not your turn)</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Timer, spotlight, emotes; Night blackout</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">06 Cards: anatomy, states, tooltip</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">UNO-style hover, USED, peeked, backs</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">07 Rondo spin and result</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Day 6+ disaster wheel</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">08 Morning recap</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">What happened overnight</div></div><div style="display: flex; gap: 10px; align-items: baseline"><div style="font: 400 16px/1 Anton, sans-serif; width: 250px">09 Sundown results</div><div style="font: 400 12.5px/1.3 Roboto, sans-serif; color: #4A423C">Who gets in and why</div></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="lbl" style="color: #B53B32">Merged palette (tokens for UITheme, task F01/F02)</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #0B0E1A; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#0B0E1A</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Sky top</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Background only: night end of the sky gradient.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #1A1C33; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#1A1C33</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Sky mid</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Background; card backs.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #6B331E; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#6B331E</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Sky glow</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Horizon glow; card back frame.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #F28C3A; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #13191D; font: 700 12px/1 Roboto, sans-serif">#F28C3A</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Sun</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Sun and warm light. Not for text.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #13191D; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#13191D</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Charcoal</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Panels, outlines, dark text.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #B53B32; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#B53B32</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Brick</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Primary buttons. Cream text passes (7:1).</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #E5A836; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #13191D; font: 700 12px/1 Roboto, sans-serif">#E5A836</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Gold</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Your turn, highlights, callouts.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #D9822B; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #13191D; font: 700 12px/1 Roboto, sans-serif">#D9822B</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Orange</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Day phase, Rondo, warnings. Charcoal text.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #632B29; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#632B29</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Dark red</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Danger, losses, Doomsday.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #4E7C86; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#4E7C86</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Teal</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Night, jumpsuits. Cream text only 3.8:1: large text only.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #3B5F67; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #F4E9D8; font: 700 12px/1 Roboto, sans-serif">#3B5F67</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Teal dark</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">New: Night buttons with small cream text (passes 5.6:1).</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; width: 150px">
+<div style="height: 70px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; color: #13191D; font: 700 12px/1 Roboto, sans-serif">#F4E9D8</div>
+<div style="font: 700 13px/1.2 Roboto, sans-serif">Cream</div>
+<div style="font: 400 12px/1.35 Roboto, sans-serif; color: #4A423C">Text on dark, card faces, note panels.</div>
+</div>
+</div>
+<div class="lbl" style="color: #B53B32; margin-top: 6px">Type</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font: 400 40px/1 Anton, sans-serif">ANTON · HEADINGS, BUTTONS</div>
+<div style="font: 400 16px/1.4 Roboto, sans-serif">Roboto · body, HUD numbers, tooltips. Body at least 28 px at 1080p (14 px on these 720p boards).</div>
+<div class="hand" style="font-size: 18px; line-height: 1.3">Special Elite · flavor text only (recap notes, card quotes): typewriter feel like 60 Seconds.</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="lbl" style="color: #B53B32">References and what we take from each</div>
+<div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">60 Seconds!</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Dark-humor doomsday tone; scrappy hand-drawn UI; items as illustrated objects; a ticking countdown that raises tension.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">Sally Face</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Exaggerated faces, thick outlines, muted grim palette with sickly warm light; eerie but cute.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">Fallout Shelter</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Vault-suit look with numbered jumpsuits (our seat numbers); cutaway rooms; cheerful puppets in a bleak world.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">Fran Bow</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Surreal, slightly unsettling backgrounds: crooked shapes, dead trees, flat painted layers, odd drifting details.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">Kitty Powers' Matchmaker</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Cutout puppet animation: parts rotate on pivots, quick expression swaps, bouncy reactions.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">UNO (digital)</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Fanned hand at the bottom, hover lifts a card and shows what it does, clear table center.</div></div><div style="display: flex; flex-direction: column; gap: 3px"><div style="font: 700 13px/1.2 Roboto, sans-serif">Buckshot Roulette</div><div style="font: 400 12px/1.4 Roboto, sans-serif; color: #4A423C">Seated first-person view across a tilted table; close, tense camera; opponents framed by a single lamp.</div></div>
+<div class="lbl" style="color: #B53B32; margin-top: 8px">Placeholder puppets (until avatar creation)</div>
+<div style="position: relative; height: 170px; background: #241C1A; border-radius: 10px; border: 2px solid #13191D">
+<div style="position: absolute; left: 30px; top: 18px; width: 94px; height: 140px; transform: scale(1); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">02</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #B98256; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #3A2618; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 15.680000000000001px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 33.6px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+<div style="position: absolute; left: 50%; top: 134px; transform: translateX(-50%); background: #13191D; color: #F4E9D8; border-radius: 4px; padding: 3px 8px; font: 500 12px/1.2 Roboto, sans-serif; white-space: nowrap">Thin body</div>
+</div>
+<div style="position: absolute; left: 170px; top: 18px; width: 124px; height: 148px; transform: scale(1); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 56px; width: 104px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">03</div>
+</div>
+<div style="position: absolute; left: 30.0px; top: 0; width: 64px; height: 64px; border-radius: 48% 48% 46% 46%; background: #E0B08A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 64px; height: 26.88px; border-radius: 32.0px 32.0px 8px 8px; background: #2A2A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 19.2px; top: 24.32px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 39.68px; top: 24.32px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 24.32px; top: 46.08px; width: 16.64px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+<div style="position: absolute; left: 118px; top: -14px; background: #F4E9D8; border: 2px solid #13191D; border-radius: 14px; padding: 2px 9px; font: 700 14px/1.2 Roboto, sans-serif; white-space: nowrap">...</div><div style="position: absolute; left: 50%; top: 142px; transform: translateX(-50%); background: #13191D; color: #F4E9D8; border-radius: 4px; padding: 3px 8px; font: 500 12px/1.2 Roboto, sans-serif; white-space: nowrap">Big body</div>
+</div>
+<div style="position: absolute; left: 320px; top: 18px; width: 94px; height: 140px; transform: scale(1); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">04</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #8A5A3A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #7A4A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 13.44px; top: 28.0px; width: 11px; height: 2px; background: #13191D"></div><div style="position: absolute; left: 32.48px; top: 28.0px; width: 11px; height: 2px; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+<div style="position: absolute; left: 50%; top: 134px; transform: translateX(-50%); background: #13191D; color: #F4E9D8; border-radius: 4px; padding: 3px 8px; font: 500 12px/1.2 Roboto, sans-serif; white-space: nowrap">Eyes closed</div>
+</div>
+</div>
+<div style="font: 400 12px/1.45 Roboto, sans-serif; color: #4A423C">Parts: head, torso, upper arm, lower arm, hand (from the rig sheet). Face = swappable eyes, brows, mouth. Jumpsuit number = seat number (01 to 06).</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

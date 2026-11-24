@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>05 Waiting (not your turn)</title>
+<style>@font-face{font-family:Anton;src:url("../../../../Assets/_Project/Resources/Fonts/Anton.ttf")}@font-face{font-family:Roboto;font-weight:400;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Regular.ttf")}@font-face{font-family:Roboto;font-weight:500 700;src:url("../../../../Assets/_Project/Resources/Fonts/Roboto-Bold.ttf")}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Roboto:wght@400;500;700&amp;family=Special+Elite&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B53B32}a:hover{color:#632B29}
+.co{position:absolute;width:30px;height:30px;border-radius:50%;background:#E5A836;color:#13191D;border:3px solid #13191D;font:700 15px/24px Roboto,sans-serif;text-align:center;box-sizing:border-box;z-index:50;box-shadow:0 0 0 2px #E5A836}
+.nb{flex:none;width:26px;height:26px;border-radius:50%;background:#E5A836;color:#13191D;border:2px solid #13191D;font:700 13px/22px Roboto,sans-serif;text-align:center;box-sizing:border-box}
+.btn{font:400 22px/1 Anton,sans-serif;letter-spacing:1px;text-transform:uppercase;border:3px solid #13191D;border-radius:6px;padding:12px 18px;cursor:pointer;box-shadow:0 4px 0 #13191D}
+.lbl{font:500 11px/1.2 Roboto,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.hand{font-family:'Special Elite',monospace}
+</style>
+
+</head>
+<body>
+
+<div style="width: 1840px; height: 1240px; box-sizing: border-box; background: #E9E2D6; font-family: Roboto, sans-serif; color: #13191D; display: flex; gap: 0; overflow: hidden">
+<div style="width: 1280px; flex: none; display: flex; flex-direction: column">
+<div style="height: 40px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: #13191D; color: #F4E9D8">
+<div style="font: 400 18px/1 Anton, sans-serif; letter-spacing: 1px">05 WAITING: NOT YOUR TURN</div>
+<div class="lbl" style="color: #E5A836">Scene: Game · 1280 x 720 (16:9) · wireframe v0.1</div>
+</div>
+<div style="position: relative; width: 1280px; height: 720px; flex: none; overflow: hidden; background: #241C1A">
+<div style="position: absolute; inset: 0; background: #241C1A"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 330px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 80px, rgba(0,0,0,.08) 80px 82px)"></div>
+<div style="position: absolute; left: 820px; top: 70px; width: 240px; height: 150px; border: 8px solid #3A2C24; border-radius: 4px; background: linear-gradient(180deg, #3B2A4A 0%, #6B331E 55%, #F28C3A 100%); overflow: hidden"><div style="position: absolute; left: 90px; top: 62px; width: 54px; height: 54px; border-radius: 50%; background: #F28C3A; box-shadow: 0 0 30px #F28C3A"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: #120E0C; clip-path: polygon(0 60%, 12% 40%, 22% 55%, 35% 20%, 46% 50%, 60% 35%, 72% 60%, 85% 30%, 100% 50%, 100% 100%, 0 100%)"></div>
+<div style="position: absolute; left: 116px; top: 0; width: 8px; height: 150px; background: #3A2C24"></div>
+</div>
+<div style="position: absolute; left: 120px; top: 60px; width: 150px; height: 190px; background: #2E2420; border: 3px solid #120E0C; border-radius: 4px"></div>
+<div style="position: absolute; left: 130px; top: 80px; width: 130px; height: 6px; background: #120E0C"></div>
+<div style="position: absolute; left: 130px; top: 140px; width: 130px; height: 6px; background: #120E0C"></div>
+<div style="position: absolute; left: 140px; top: 96px; width: 26px; height: 40px; background: #5A4A3A; border: 2px solid #120E0C"></div>
+<div style="position: absolute; left: 176px; top: 104px; width: 34px; height: 32px; background: #44535A; border: 2px solid #120E0C"></div>
+<div style="position: absolute; left: 150px; top: 154px; width: 40px; height: 34px; background: #6B4A2A; border: 2px solid #120E0C"></div>
+<div style="position: absolute; left: 490px; top: 40px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(242,180,90,.30) 0%, rgba(242,180,90,0) 70%)"></div>
+<div style="position: absolute; left: 638px; top: 0; width: 3px; height: 70px; background: #120E0C"></div>
+<div style="position: absolute; left: 610px; top: 68px; width: 60px; height: 26px; border-radius: 30px 30px 4px 4px; background: #2D3A3E; border: 3px solid #120E0C"></div>
+<div style="position: absolute; left: 630px; top: 90px; width: 20px; height: 16px; border-radius: 0 0 10px 10px; background: #FFD27A"></div><div style="position: absolute; left: 90px; top: 330px; width: 1100px; height: 390px; background: #3E2A1F; clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%); z-index: 3"></div>
+<div style="position: absolute; left: 289px; top: 322px; width: 702px; height: 14px; background: #2A1C15; z-index: 4; border-radius: 3px"></div>
+<div style="position: absolute; left: 420px; top: 380px; width: 440px; height: 150px; border-radius: 50%; border: 3px dashed rgba(244,233,216,.18); z-index: 4"></div><div style="position: absolute; left: 250px; top: 210px; width: 124px; height: 148px; transform: scale(1.15); transform-origin: top center; z-index: 2; ">
+<div style="position: absolute; left: 10.0px; top: 56px; width: 104px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">02</div>
+</div>
+<div style="position: absolute; left: 30.0px; top: 0; width: 64px; height: 64px; border-radius: 48% 48% 46% 46%; background: #8A5A3A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 64px; height: 26.88px; border-radius: 32.0px 32.0px 8px 8px; background: #2A1A12; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 17.92px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 38.4px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 24.32px; top: 46.08px; width: 16.64px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div><div style="position: absolute; left: 244px; top: 380px; padding: 3px 10px; border-radius: 4px; background: #13191D; color: #F4E9D8; font: 700 12px/1.3 Roboto, sans-serif; z-index: 19; white-space: nowrap">Player 2 · 3 cards</div><div style="position: absolute; left: 232px; top: 408px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(-7.5deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #4E7C86"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">▼</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #4E7C86; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">WATE</div></div>
+</div><div style="position: absolute; left: 262px; top: 408px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(-2.5deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #D9822B"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">●</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #D9822B; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">FOOD</div></div>
+</div><div style="position: absolute; left: 292px; top: 408px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(2.5deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #B53B32"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">+</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #B53B32; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">MEDI</div></div>
+</div><div style="position: absolute; left: 580px; top: 175px; width: 94px; height: 140px; transform: scale(1.15); transform-origin: top center; z-index: 18; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; box-shadow: 0 0 0 4px #D9822B, 0 0 28px 8px #D9822B;">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">03</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #E0B08A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #2A2A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 16.8px; top: 21.28px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 34.72px; top: 21.28px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+<div style="position: absolute; left: 88px; top: -14px; background: #F4E9D8; border: 2px solid #13191D; border-radius: 14px; padding: 2px 9px; font: 700 14px/1.2 Roboto, sans-serif; white-space: nowrap">...</div>
+</div><div style="position: absolute; left: 574px; top: 345px; padding: 3px 10px; border-radius: 4px; background: #D9822B; color: #13191D; font: 700 12px/1.3 Roboto, sans-serif; z-index: 19; white-space: nowrap">Bot 3 · 4 cards</div><div style="position: absolute; left: 562px; top: 373px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(-10.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #E5A836"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">◆</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #E5A836; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">ENTE</div></div>
+</div><div style="position: absolute; left: 592px; top: 373px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(-5.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #D9822B"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">●</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #D9822B; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">FOOD</div></div>
+</div><div style="position: absolute; left: 622px; top: 373px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(0.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 16.64px; background: #13191D; color: #E5A836; font: 400 10px/1.1 Anton, sans-serif; letter-spacing: .5px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 4px; box-sizing: border-box">MORNING</div>
+<div style="position: absolute; left: 6px; right: 6px; top: 21.76px; font: 700 9px/1.15 Roboto, sans-serif; text-align: center">Reverse Turn</div>
+<div style="position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); width: 18.400000000000002px; height: 18.400000000000002px; border-radius: 50%; border: 3px solid #13191D; box-sizing: border-box"></div></div>
+</div><div style="position: absolute; left: 652px; top: 373px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(5.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #4E7C86"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">▼</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #4E7C86; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">WATE</div></div>
+</div><div style="position: absolute; left: 910px; top: 210px; width: 94px; height: 140px; transform: scale(1.15); transform-origin: top center; z-index: 2; ">
+<div style="position: absolute; left: 10.0px; top: 48px; width: 74px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">04</div>
+</div>
+<div style="position: absolute; left: 19.0px; top: 0; width: 56px; height: 56px; border-radius: 48% 48% 46% 46%; background: #B98256; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 56px; height: 23.52px; border-radius: 28.0px 28.0px 8px 8px; background: #7A4A2A; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 15.680000000000001px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 33.6px; top: 25.2px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 21.28px; top: 40.32px; width: 14.56px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div><div style="position: absolute; left: 904px; top: 380px; padding: 3px 10px; border-radius: 4px; background: #13191D; color: #F4E9D8; font: 700 12px/1.3 Roboto, sans-serif; z-index: 19; white-space: nowrap">Bot 4 · 2 cards</div><div style="position: absolute; left: 892px; top: 408px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(-5.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #D9822B"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">●</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #D9822B; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">FOOD</div></div>
+</div><div style="position: absolute; left: 922px; top: 408px; width: 46px; height: 64px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 8; transform: rotate(0.0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 14.08px; background: #D9822B"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 11px/1 Roboto, sans-serif; color: #13191D">●</div>
+<div style="position: absolute; left: 50%; top: 19.2px; transform: translateX(-50%); width: 25.76px; height: 25.76px; border-radius: 10px; border: 3px dashed #D9822B; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 8px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 10px/1 Anton, sans-serif; letter-spacing: .5px">FOOD</div></div>
+</div><div style="position: absolute; left: 520px; top: 400px; z-index: 6"><div style="position: absolute; left: 0px; top: 0px; width: 74px; height: 104px; border-radius: 8px; background: #1A1C33; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 10; transform: rotate(0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; inset: 6px; border-radius: 6px; border: 2px solid #6B331E; background: repeating-linear-gradient(45deg, #1A1C33 0 6px, #22243F 6px 12px)"></div>
+<div style="position: absolute; left: 50%; top: 50%; width: 31.08px; height: 15.54px; transform: translate(-50%, -50%); border-radius: 74px 74px 0 0; background: #F28C3A"></div></div>
+</div><div style="position: absolute; left: 4px; top: -4px; width: 74px; height: 104px; border-radius: 8px; background: #1A1C33; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 10; transform: rotate(0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; inset: 6px; border-radius: 6px; border: 2px solid #6B331E; background: repeating-linear-gradient(45deg, #1A1C33 0 6px, #22243F 6px 12px)"></div>
+<div style="position: absolute; left: 50%; top: 50%; width: 31.08px; height: 15.54px; transform: translate(-50%, -50%); border-radius: 74px 74px 0 0; background: #F28C3A"></div></div>
+</div><div style="position: absolute; left: 8px; top: -8px; width: 74px; height: 104px; border-radius: 8px; background: #1A1C33; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 10; transform: rotate(0deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; inset: 6px; border-radius: 6px; border: 2px solid #6B331E; background: repeating-linear-gradient(45deg, #1A1C33 0 6px, #22243F 6px 12px)"></div>
+<div style="position: absolute; left: 50%; top: 50%; width: 31.08px; height: 15.54px; transform: translate(-50%, -50%); border-radius: 74px 74px 0 0; background: #F28C3A"></div></div>
+</div></div>
+<div style="position: absolute; left: 520px; top: 510px; width: 90px; text-align: center; font: 700 12px/1 Roboto, sans-serif; color: #F4E9D8; z-index: 6">Draw pile · 41</div>
+<div style="position: absolute; left: 680px; top: 404px; width: 96px; height: 96px; border-radius: 50%; background: conic-gradient(#5A3A28 0 12.5%, #4A3022 12.5% 25%, #5A3A28 25% 37.5%, #4A3022 37.5% 50%, #5A3A28 50% 62.5%, #4A3022 62.5% 75%, #5A3A28 75% 87.5%, #4A3022 87.5% 100%); border: 4px solid #2A1C15; opacity: .6; z-index: 6"></div>
+<div style="position: absolute; left: 686px; top: 504px; width: 90px; text-align: center; font: 700 11px/1.2 Roboto, sans-serif; color: #B9AFA3; z-index: 6">Rondo · from Day 6</div><div style="position: absolute; inset: 0; background: radial-gradient(ellipse 260px 300px at 640px 300px, rgba(0,0,0,0) 0%, rgba(0,0,0,.62) 100%); z-index: 15"></div><div style="position: absolute; left: 20px; top: 16px; padding: 10px 14px; background: rgba(19,25,29,.92); border-radius: 10px; border: 2px solid #D9822B; display: flex; flex-direction: column; gap: 8px; z-index: 30">
+<div style="display: flex; align-items: baseline; gap: 10px"><div style="font: 400 30px/1 Anton, sans-serif; color: #F4E9D8; letter-spacing: 1px">DAY 3</div><div class="lbl" style="color: #B9AFA3">of 10</div><div style="margin-left: 6px; padding: 3px 8px; border-radius: 4px; background: #D9822B; color: #13191D; font: 700 12px/1 Roboto, sans-serif; letter-spacing: 1px">DAY</div></div>
+<div style="display: flex; gap: 5px"><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: #E5A836"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: #E5A836"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: #E5A836"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div><div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #F4E9D8; box-sizing: border-box; background: transparent"></div></div>
+</div><div style="position: absolute; left: 400px; top: 24px; width: 480px; padding: 12px 18px; box-sizing: border-box; background: rgba(19,25,29,.95); border: 3px solid #D9822B; border-radius: 12px; z-index: 40; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><div style="font: 400 30px/1 Anton, sans-serif; color: #F4E9D8; letter-spacing: 1px">BOT 3'S TURN</div><div style="font: 700 22px/1 Roboto, sans-serif; color: #E5A836">0:18</div></div>
+<div style="height: 8px; border-radius: 4px; background: #333"><div style="width: 60%; height: 8px; border-radius: 4px; background: #D9822B"></div></div>
+<div style="display: flex; justify-content: space-between"><div style="font: 400 14px/1.2 Roboto, sans-serif; color: #F4E9D8">Choosing a trade...</div><div style="font: 500 12px/1.2 Roboto, sans-serif; color: #B9AFA3">Next: Bot 4, then You</div></div>
+</div><div style="position: absolute; left: 1060px; top: 140px; width: 200px; padding: 12px; box-sizing: border-box; background: rgba(19,25,29,.92); border-radius: 10px; border: 2px solid #4A4A4A; z-index: 40; display: flex; flex-direction: column; gap: 8px">
+<div class="lbl" style="color: #E5A836">Turn order</div>
+<div style="font: 400 13px/1 Roboto, sans-serif; color: #8A8178">01 You (done)</div>
+<div style="font: 400 13px/1 Roboto, sans-serif; color: #8A8178">02 Player 2 (done)</div>
+<div style="font: 700 13px/1 Roboto, sans-serif; color: #D9822B">03 Bot 3 · now</div>
+<div style="font: 400 13px/1 Roboto, sans-serif; color: #F4E9D8">04 Bot 4</div>
+</div><div style="position: absolute; left: 20px; top: 140px; width: 190px; padding: 12px 14px; box-sizing: border-box; background: rgba(19,25,29,.92); border: 2px solid #E5A836; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; z-index: 30">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><div class="lbl" style="color: #E5A836">Your kinds</div><div style="font: 400 20px/1 Anton, sans-serif; color: #F4E9D8">3/3</div></div>
+<div style="height: 6px; border-radius: 3px; background: #333"><div style="width: 100%; height: 6px; border-radius: 3px; background: #E5A836"></div></div>
+<div style="display: flex; align-items: center; gap: 8px; opacity: 1">
+<div style="width: 22px; height: 22px; border-radius: 5px; background: #D9822B; border: 2px solid #13191D; color: #13191D; font: 700 13px/18px Roboto, sans-serif; text-align: center">●</div>
+<div style="font: 500 13px/1 Roboto, sans-serif; color: #F4E9D8; flex: 1">Food</div><span style="color: #E5A836; font-weight: 700">✓</span>
+</div><div style="display: flex; align-items: center; gap: 8px; opacity: 1">
+<div style="width: 22px; height: 22px; border-radius: 5px; background: #4E7C86; border: 2px solid #13191D; color: #13191D; font: 700 13px/18px Roboto, sans-serif; text-align: center">▼</div>
+<div style="font: 500 13px/1 Roboto, sans-serif; color: #F4E9D8; flex: 1">Water</div><span style="color: #E5A836; font-weight: 700">✓</span>
+</div><div style="display: flex; align-items: center; gap: 8px; opacity: 0.55">
+<div style="width: 22px; height: 22px; border-radius: 5px; background: #B53B32; border: 2px solid #13191D; color: #13191D; font: 700 13px/18px Roboto, sans-serif; text-align: center">+</div>
+<div style="font: 500 13px/1 Roboto, sans-serif; color: #F4E9D8; flex: 1">Medicine</div><span style="color: #8A8178">·</span>
+</div><div style="display: flex; align-items: center; gap: 8px; opacity: 1">
+<div style="width: 22px; height: 22px; border-radius: 5px; background: #E5A836; border: 2px solid #13191D; color: #13191D; font: 700 13px/18px Roboto, sans-serif; text-align: center">◆</div>
+<div style="font: 500 13px/1 Roboto, sans-serif; color: #F4E9D8; flex: 1">Entertainment</div><span style="color: #E5A836; font-weight: 700">✓</span>
+</div>
+</div><div style="position: absolute; left: 480px; top: 600px; width: 96px; height: 134px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 20; filter: saturate(.6) brightness(.85); transform: rotate(-10deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 29.48px; background: #D9822B"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 15.36px/1 Roboto, sans-serif; color: #13191D">●</div>
+<div style="position: absolute; left: 50%; top: 40.199999999999996px; transform: translateX(-50%); width: 53.760000000000005px; height: 53.760000000000005px; border-radius: 10px; border: 3px dashed #D9822B; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 9.600000000000001px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 14.399999999999999px/1 Anton, sans-serif; letter-spacing: .5px">FOOD</div></div>
+</div><div style="position: absolute; left: 566px; top: 600px; width: 96px; height: 134px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 20; filter: saturate(.6) brightness(.85); transform: rotate(-3deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 29.48px; background: #4E7C86"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 15.36px/1 Roboto, sans-serif; color: #13191D">▼</div>
+<div style="position: absolute; left: 50%; top: 40.199999999999996px; transform: translateX(-50%); width: 53.760000000000005px; height: 53.760000000000005px; border-radius: 10px; border: 3px dashed #4E7C86; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 9.600000000000001px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 14.399999999999999px/1 Anton, sans-serif; letter-spacing: .5px">WATER</div></div>
+</div><div style="position: absolute; left: 652px; top: 600px; width: 96px; height: 134px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 20; filter: saturate(.6) brightness(.85); transform: rotate(4deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 29.48px; background: #E5A836"></div>
+<div style="position: absolute; left: 5px; top: 3px; font: 700 15.36px/1 Roboto, sans-serif; color: #13191D">◆</div>
+<div style="position: absolute; left: 50%; top: 40.199999999999996px; transform: translateX(-50%); width: 53.760000000000005px; height: 53.760000000000005px; border-radius: 10px; border: 3px dashed #E5A836; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font: 500 9.600000000000001px/1 Roboto, sans-serif; color: #7a6d60">ART</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 400 14.399999999999999px/1 Anton, sans-serif; letter-spacing: .5px">ENTERTAINMENT</div></div>
+</div><div style="position: absolute; left: 738px; top: 600px; width: 96px; height: 134px; border-radius: 8px; background: #F4E9D8; border: 2px solid #13191D; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,.4); overflow: visible; z-index: 20; transform: rotate(10deg) translateY(0px) scale(1); transform-origin: bottom center;">
+<div style="position: absolute; inset: 0; border-radius: 6px; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 0; height: 34.84px; background: #13191D; color: #E5A836; font: 400 12.48px/1.1 Anton, sans-serif; letter-spacing: .5px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 4px; box-sizing: border-box">MORNING</div>
+<div style="position: absolute; left: 6px; right: 6px; top: 45.56px; font: 700 12.48px/1.15 Roboto, sans-serif; text-align: center">Skip Next Player</div>
+<div style="position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); width: 38.400000000000006px; height: 38.400000000000006px; border-radius: 50%; border: 3px solid #13191D; box-sizing: border-box"></div></div><div style="position: absolute; inset: 0; background: rgba(40,40,40,.55); border-radius: 8px"></div><div style="position: absolute; left: 50%; top: 45%; transform: translate(-50%,-50%) rotate(-14deg); border: 3px solid #B53B32; color: #B53B32; background: #F4E9D8; font: 400 16.32px/1 Anton, sans-serif; padding: 3px 8px; letter-spacing: 1px">USED</div>
+</div><div style="position: absolute; left: 24px; top: 560px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #3A4A50, #13191D); border: 4px solid #4A4A4A; overflow: hidden; z-index: 30">
+<div style="position: absolute; left: -2px; top: 18px; width: 124px; height: 148px; transform: scale(0.78); transform-origin: top center; z-index: 5; ">
+<div style="position: absolute; left: 10.0px; top: 56px; width: 104px; height: 84px; border-radius: 26px 26px 6px 6px; background: #4E7C86; border: 3px solid #13191D; box-sizing: border-box; ">
+<div style="position: absolute; left: 50%; top: 6px; width: 3px; height: 70px; background: #7A8C90"></div>
+<div style="position: absolute; left: 10px; top: 20px; font: 700 15px/1 Roboto, sans-serif; color: #E0303A">01</div>
+</div>
+<div style="position: absolute; left: 30.0px; top: 0; width: 64px; height: 64px; border-radius: 48% 48% 46% 46%; background: #C48A5A; border: 3px solid #13191D; box-sizing: border-box">
+<div style="position: absolute; left: -3px; top: -3px; width: 64px; height: 26.88px; border-radius: 32.0px 32.0px 8px 8px; background: #5A3A20; border: 3px solid #13191D"></div>
+<div style="position: absolute; left: 17.92px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 38.4px; top: 28.8px; width: 7px; height: 7px; border-radius: 50%; background: #13191D"></div><div style="position: absolute; left: 24.32px; top: 46.08px; width: 16.64px; height: 3px; border-radius: 2px; background: #13191D"></div>
+</div>
+
+</div>
+</div>
+<div style="position: absolute; left: 54px; top: 668px; padding: 2px 10px; border-radius: 4px; background: #E5A836; color: #13191D; font: 700 12px/1.3 Roboto, sans-serif; z-index: 31">YOU</div><div style="position: absolute; left: 160px; bottom: 30px; display: flex; gap: 8px; z-index: 40">
+<button style="height: 44px; padding: 0 14px; border-radius: 22px; background: rgba(19,25,29,.92); border: 2px solid #4A4A4A; color: #F4E9D8; font: 500 13px/1 Roboto, sans-serif; cursor: pointer">Angry</button><button style="height: 44px; padding: 0 14px; border-radius: 22px; background: rgba(19,25,29,.92); border: 2px solid #4A4A4A; color: #F4E9D8; font: 500 13px/1 Roboto, sans-serif; cursor: pointer">Giddy</button><button style="height: 44px; padding: 0 14px; border-radius: 22px; background: rgba(19,25,29,.92); border: 2px solid #4A4A4A; color: #F4E9D8; font: 500 13px/1 Roboto, sans-serif; cursor: pointer">Sad</button><button style="height: 44px; padding: 0 14px; border-radius: 22px; background: rgba(19,25,29,.92); border: 2px solid #4A4A4A; color: #F4E9D8; font: 500 13px/1 Roboto, sans-serif; cursor: pointer">Thinking</button>
+</div><div style="position: absolute; right: 24px; bottom: 30px; width: 300px; padding: 12px 14px; box-sizing: border-box; background: #F4E9D8; border: 3px solid #13191D; border-radius: 10px; z-index: 40; display: flex; flex-direction: column; gap: 8px">
+<div class="lbl" style="color: #B53B32">Example: incoming trade</div>
+<div style="font: 400 13px/1.35 Roboto, sans-serif">Bot 3 offers <b>Entertainment</b> for your <b>Water</b>.</div>
+<div style="display: flex; gap: 8px"><button style="flex: 1; height: 44px; border-radius: 6px; background: #B53B32; color: #F4E9D8; border: 2px solid #13191D; font: 400 18px/1 Anton, sans-serif; cursor: pointer">ACCEPT</button><button style="flex: 1; height: 44px; border-radius: 6px; background: #2B2F33; color: #F4E9D8; border: 2px solid #13191D; font: 400 18px/1 Anton, sans-serif; cursor: pointer">REFUSE</button></div>
+</div><div style="position: absolute; left: 24px; top: 300px; width: 330px; height: 186px; border-radius: 10px; border: 3px solid #4E7C86; background: #05070A; z-index: 45; overflow: hidden">
+<div style="position: absolute; left: 10px; top: 8px; padding: 3px 8px; border-radius: 4px; background: #4E7C86; color: #F4E9D8; font: 700 10px/1 Roboto, sans-serif; letter-spacing: 1px">NIGHT VERSION</div>
+<div style="position: absolute; left: 0; right: 0; top: 50px; display: flex; justify-content: center; gap: 22px"><div style="width: 40px; height: 4px; border-radius: 2px; background: #9FB7BD"></div><div style="width: 40px; height: 4px; border-radius: 2px; background: #9FB7BD"></div></div>
+<div style="position: absolute; left: 0; right: 0; top: 80px; text-align: center; font: 400 26px/1 Anton, sans-serif; color: #F4E9D8; letter-spacing: 1px">EYES CLOSED</div>
+<div class="hand" style="position: absolute; left: 0; right: 0; top: 116px; text-align: center; font-size: 14px; color: #9FB7BD">Someone is moving in the dark...</div>
+<div style="position: absolute; left: 60px; right: 60px; bottom: 18px; height: 6px; border-radius: 3px; background: #1A2226"><div style="width: 40%; height: 6px; border-radius: 3px; background: #4E7C86"></div></div>
+</div><div class="co" style="left: 380px; top: 20px">1</div><div class="co" style="left: 640px; top: 160px">2</div><div class="co" style="left: 1240px; top: 130px">3</div><div class="co" style="left: 470px; top: 590px">4</div><div class="co" style="left: 150px; top: 640px">5</div><div class="co" style="left: 1240px; top: 580px">6</div><div class="co" style="left: 20px; top: 290px">7</div>
+</div>
+<div style="flex: 1 1 auto; box-sizing: border-box; padding: 20px 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font: 400 18px/1 Anton, sans-serif; letter-spacing: .5px">Why, motion and timer rules</div>
+<div style="display: flex; gap: 28px"><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Why this matters</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Players wait 8 to 14 minutes a game (patch notes). This screen is seen more than any other, so it must stay alive: spotlight, live status, readable hand, emotes.</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Motion</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Active puppet: small thinking loop (scratch head, tap chin).
+When their action lands: their puppet reacts (happy or shocked) and a short line appears in the banner.</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Timer at zero (assumption)</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Day: the turn ends with no action. Night: if no Peek was done, a random Peek is done automatically, then the turn ends. Waiting on D-Q1.</div>
+</div><div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div class="lbl" style="color: #B53B32">Phone vs PC</div>
+<div style="font: 400 12.5px/1.5 Roboto, sans-serif; white-space: pre-line">Phone: banner shrinks to one line at the top; emotes collapse into one button that opens a small wheel.</div>
+</div></div>
+</div>
+</div><div style="width: 560px; flex: none; height: 100%; box-sizing: border-box; padding: 28px 28px 24px; background: #F4E9D8; border-left: 4px solid #13191D; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div class="lbl" style="color: #B53B32">Notes for developers</div>
+<div style="font: 400 26px/1.1 Anton, sans-serif; letter-spacing: .5px">Waiting screen (Day) and blackout (Night)</div>
+</div>
+<div style="border: 2px dashed #B53B32; border-radius: 8px; padding: 10px 12px; font: 400 12px/1.45 Roboto, sans-serif; color: #632B29"><b>Assumptions on this screen:</b> Timer at zero ends the turn; a Peek is done for you at Night if needed (D-Q1).</div>
+<div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">1</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Whose turn banner with timer</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Name, countdown (Day 30 s, Night 20 s), progress bar, and a live line of what they are doing (&#x27;Choosing a trade&#x27;, &#x27;Scavenging&#x27;, &#x27;Playing Reverse Turn&#x27;). Shows who is next so you can get ready.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">New: WaitingView (uses IGameView events) · Must (L08)</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">2</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Spotlight on the active player</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">The scene darkens except a soft cone on the active puppet, which shows its thinking face and &#x27;...&#x27; bubble. Their name plate turns orange.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">PlayerZoneController + TableBackdrop · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">3</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Turn order list</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Who already played, who is now, who is next. Reverse Turn flips the list with a short animation.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">HUDController · Should</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">4</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Your hand while waiting</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Slightly desaturated so it is clearly not your turn, but you can still hover or long-press every card to read it and plan.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">HandController · Must</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">5</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Emotes</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Angry, giddy, sad, thinking. Your portrait and your seat (on other screens) play the expression and a short pose. 5 s cooldown so nobody spams.</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">New: EmoteBar · Could (C07) · Network message</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">6</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Incoming trade prompt</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">Trades now pick a card by its front, so the prompt says exactly which cards. Accept or Refuse; refusing tells the other player clearly (refused trades happen about 3 times a game).</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">CardPicker / trade flow · Must (U02)</div>
+</div>
+</div><div style="display: flex; gap: 10px; align-items: flex-start">
+<div class="nb">7</div>
+<div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<div style="font: 700 13.5px/1.3 Roboto, sans-serif">Night version: eyes closed screen</div>
+<div style="font: 400 12.5px/1.45 Roboto, sans-serif; color: #2E2A27">During other players&#x27; Night turns, everything is hidden: black screen, closed eyes, &#x27;Someone is moving in the dark&#x27;, a timer bar. No names, no hands, nothing that could leak. Your own phone vibrates lightly when it is your Night turn (phones).</div>
+<div style="font: 500 11px/1.3 Roboto, sans-serif; color: #6B5F55">New: NightBlackout · Must</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
