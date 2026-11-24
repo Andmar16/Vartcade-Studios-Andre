@@ -27,7 +27,7 @@ namespace TDTS.UI
         private static readonly float[] SeatX = { 0f, 470f, 960f, 1440f }; // by seats after you (1 = left, 2 = across, 3 = right)
 
         private IGameView view;
-        private RectTransform room, seats, lamp, lampLight, spotlight;
+        private RectTransform room, seats, lamp, lampLight, lightLayer, spotlight;
         private RawImage windowSky;
         private RectTransform windowSun;
         private Image windowMoon, nightTint, dimmer;
@@ -81,6 +81,8 @@ namespace TDTS.UI
             BuildShelf();
 
             // Opponents sit here, behind the table
+            // The lamp's pool of light sits behind the seats, so it lights the wall, not the faces
+            lightLayer = NewRect("LampLight", room, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             seats = NewRect("Seats", room, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             spotlight = Glow(room, "Spotlight", new Vector2(960f, 420f), new Vector2(420f, 520f), new Color(1f, 0.85f, 0.55f, 0f));
 
@@ -141,10 +143,10 @@ namespace TDTS.UI
             lamp.anchoredPosition = new Vector2(0f, -100f);
             var cord = NewRect("Cord", lamp, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(-2f, -110f), new Vector2(2f, 0f));
             cord.gameObject.AddComponent<Image>().color = Wood;
-            lampLight = NewRect("Light", lamp, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, Vector2.zero);
+            lampLight = NewRect("Light", lightLayer, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, Vector2.zero);
             lampLight.pivot = new Vector2(0.5f, 1f);
-            lampLight.sizeDelta = new Vector2(760f, 640f);
-            lampLight.anchoredPosition = new Vector2(0f, -100f);
+            lampLight.sizeDelta = new Vector2(900f, 620f);
+            lampLight.anchoredPosition = new Vector2(0f, -170f);
             var light = lampLight.gameObject.AddComponent<RawImage>();
             light.texture = PoolTexture();
             light.color = UITheme.WithAlpha(LampLight, 0.16f);
@@ -232,9 +234,10 @@ namespace TDTS.UI
                     Stretch((RectTransform)cluster);
                     DisableLayout(cluster);
                     // Low enough to clear the name plates above them
-                    Keep(cluster.Find("DrawPile"), 820f, 785f);
-                    Keep(cluster.Find("RondoWheel"), 1070f, 790f);
-                    Keep(cluster.Find("PlaySpace"), 1380f, 790f);
+                    // Pile left of centre, Rondo right, the log off to the left: the middle stays clear for your hand
+                    Keep(cluster.Find("DrawPile"), 720f, 790f);
+                    Keep(cluster.Find("RondoWheel"), 1220f, 795f);
+                    Keep(cluster.Find("PlaySpace"), 440f, 800f);
                 }
             }
 

@@ -106,6 +106,19 @@ namespace TDTS.UI
             ShowPuppet(turn);
             LayOutCards(p.hand);
 
+            // Wireframe 03-2/03-3: no box in the room, just a small name tag with their cards on the
+            // table below it; the spot only glows when it's their turn or you've picked them
+            if (TableRoom.Current != null)
+            {
+                string tag = active ? "#D9822BEE" : "#13191DE6";
+                label.text = $"<mark={tag} padding=\"18,18,4,4\"><b>{p.playerName}</b>  <size=70%>{cards}</size></mark>";
+                if (background != null)
+                    background.color = GameView.Current.SelectedTarget == p ? new Color(UITheme.Gold.r, UITheme.Gold.g, UITheme.Gold.b, 0.28f)
+                        : active ? new Color(UITheme.Orange.r, UITheme.Orange.g, UITheme.Orange.b, 0.18f)
+                        : Color.clear;
+                return;
+            }
+
             // Your pick for Trade / Steal wins over the "their turn" colour
             if (background != null)
                 background.color = GameView.Current.SelectedTarget == p ? Glass(selectedColor)
