@@ -141,7 +141,7 @@ namespace TDTS.UI
         public static GameObject Settings(Transform canvas, Action onClose = null)
         {
             RectTransform overlay = Overlay("Settings", canvas);
-            var panel = NewPanel("Panel", overlay, new Vector2(-420f, -300f), new Vector2(420f, 300f));
+            var panel = NewPanel("Panel", overlay, new Vector2(-420f, -352f), new Vector2(420f, 352f));
 
             var title = SundownFonts.UseTitle(NewText("Title", panel, 56, FontStyles.Normal, TextAlignmentOptions.Left,
                 new Vector2(0f, 1f), Vector2.one, new Vector2(56f, -120f), new Vector2(-56f, -36f)));
@@ -169,6 +169,9 @@ namespace TDTS.UI
 
             Segmented(Row("Bot speed", "How long bots think"), new[] { "Slow", "Normal", "Fast" },
                 (int)GameSettings.Bots, i => GameSettings.Bots = (GameSettings.BotSpeed)i);
+
+            Segmented(Row("Reduce motion", "Still backgrounds, no flicker"), new[] { "On", "Off" },
+                GameSettings.ReduceMotion ? 0 : 1, i => GameSettings.ReduceMotion = i == 0);
 
             var done = NewRect("Done", panel, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-296f, 36f), new Vector2(-56f, 100f));
             MakeButton(done, "Done", AccentColor, () => Close(overlay, onClose), 24);

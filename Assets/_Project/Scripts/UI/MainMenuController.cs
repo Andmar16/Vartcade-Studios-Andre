@@ -3,51 +3,90 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TDTS.Data;
+using TDTS.Managers;
 using static TDTS.UI.SundownArt;
 
 namespace TDTS.UI
 {
     /// <summary>
-    /// The title screen: the sundown sky, the game's name, a fan of cards, and Play, How to play,
-    /// Settings and Quit, plus your profile badge in the corner. Builds its own UI at runtime and hides the scene's older canvas.
+    /// The title screen, built from wireframe 01 (v0.1): the animated environment with the bunker
+    /// hatch, the logo and tagline, Play online / Play vs bots / Tutorial, the Cards, Profile and
+    /// Settings row, Quit on PC, an idle puppet by the hatch and the profile chip.
+    /// Builds its own UI at runtime and hides the scene's older canvas.
     /// Attach to an empty "MainMenuController" GameObject in the MainMenu scene.
     /// </summary>
     public class MainMenuController : MonoBehaviour
     {
         [Header("Scene Names")]
         [SerializeField] private string lobbySceneName = "Lobby";
+        [SerializeField] private string gameSceneName = "Game";
+        [SerializeField] private string cardGallerySceneName = "CardGallery";
 
         [Header("Old scene panels (hidden; kept so their buttons still compile)")]
         [SerializeField] private GameObject howToPlayPanel;
         [SerializeField] private GameObject settingsPanel;
 
+        private const string TutorialSeenKey = "menu.tutorialSeen";
+        private static bool logoDropped; // the logo bounces in on first load only
+
         private Transform canvas;
-        private RectTransform fan;
-        private RectTransform profileBadge;
+        private RectTransform logo;
+        private RectTransform profileChip;
+        private GameObject newTag;
+        private float logoStart;
 
         private void Start()
         {
             HideSceneCanvas();
             EnsureCameraAndEventSystem();
-            canvas = SkyCanvas(transform);
-            BuildColumn();
-            BuildCardFan();
-            BuildProfileBadge();
+            canvas = PlainCanvas(transform);
+            MenuBackground background = MenuBackground.Create(canvas);
+            Puppet.Create(background.Foreground, new Vector2(0.945f, 0.105f), 1, 300f);
+            BuildLogo();
+            BuildButtons();
+            BuildProfileChip();
+            BuildFooter();
+            logoStart = Time.unscaledTime;
         }
 
-        // A slow sway, like cards held in a tired hand
+        // Logo drops in with a small bounce, first load only
         private void Update()
         {
-            if (fan != null) fan.localEulerAngles = new Vector3(0f, 0f, Mathf.Sin(Time.unscaledTime * 0.6f) * 1.5f);
+            if (logo == null || logoDropped) return;
+            float t = (Time.unscaledTime - logoStart) / 0.7f;
+            if (t >= 1f)
+            {
+                logo.anchoredPosition = Vector2.zero;
+                logoDropped = true;
+                return;
+            }
+            float bounce = 1f - Mathf.Pow(1f - t, 3f) * Mathf.Cos(t * Mathf.PI * 2.5f);
+            logo.anchoredPosition = new Vector2(0f, Mathf.LerpUnclamped(160f, 0f, bounce));
         }
 
-        public void OnPlayPressed() => SceneManager.LoadScene(lobbySceneName);
+        public void OnPlayOnlinePressed() => SceneManager.LoadScene(lobbySceneName);
+
+        public void OnPlayBotsPressed() => SceneManager.LoadScene(gameSceneName);
+
+        // Kept for the old scene buttons
+        public void OnPlayPressed() => OnPlayOnlinePressed();
+
+        public void OnTutorialPressed()
+        {
+            // The guided game (W15) is still to come; until then the tutorial opens How to play
+            PlayerPrefs.SetInt(TutorialSeenKey, 1);
+            PlayerPrefs.Save();
+            if (newTag != null) newTag.SetActive(false);
+            MenuScreens.HowToPlay(canvas);
+        }
 
         public void OnHowToPlayPressed() => MenuScreens.HowToPlay(canvas);
 
+        public void OnCardsPressed() => SceneManager.LoadScene(cardGallerySceneName);
+
         public void OnSettingsPressed() => MenuScreens.Settings(canvas);
 
-        public void OnProfilePressed() => MenuScreens.Profile(canvas, BuildProfileBadge); // a reset shows straight away
+        public void OnProfilePressed() => MenuScreens.Profile(canvas, BuildProfileChip); // a reset shows straight away
 
         public void OnQuitPressed()
         {
@@ -72,120 +111,162 @@ namespace TDTS.UI
                 if (root != gameObject && root.GetComponent<Canvas>() != null) root.SetActive(false);
         }
 
-        /// <summary>
-        /// Everything on the left stacks in one column, top to bottom: title, tagline, a flexible gap,
-        /// the buttons, then the footer. On a short window the gap shrinks first, so nothing overlaps.
-        /// </summary>
-        private void BuildColumn()
+        private static Transform PlainCanvas(Transform parent)
         {
-            var column = NewRect("Column", canvas, Vector2.zero, new Vector2(0.56f, 1f), new Vector2(160f, 36f), new Vector2(0f, -140f));
-            var layout = column.gameObject.AddComponent<VerticalLayoutGroup>();
-            layout.spacing = 10f;
-            layout.childAlignment = TextAnchor.UpperLeft;
-            layout.childControlWidth = layout.childControlHeight = true;
-            layout.childForceExpandWidth = layout.childForceExpandHeight = false;
+            var go = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            go.transform.SetParent(parent, false);
+            go.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            var scaler = go.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+            scaler.matchWidthOrHeight = 0.5f;
+            return go.transform;
+        }
 
-            var eyebrow = Stacked(NewText("Eyebrow", column, 24, FontStyles.Bold, TextAlignmentOptions.Left,
+        // 01-3: TEN DAYS in cream, TO SUNDOWN in gold, hard charcoal shadow, then the tagline
+        private void BuildLogo()
+        {
+            var holder = NewRect("LogoArea", canvas, new Vector2(0f, 1f), new Vector2(0.6f, 1f), new Vector2(120f, -440f), new Vector2(0f, -120f));
+            logo = NewRect("Logo", holder, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            if (logoDropped) logo.anchoredPosition = Vector2.zero;
+
+            var title = SundownFonts.UseTitle(NewText("Title", logo, 150, FontStyles.Normal, TextAlignmentOptions.TopLeft,
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero));
-            eyebrow.text = "VARTCADE STUDIOS PRESENTS";
-            eyebrow.characterSpacing = 20f;
-            eyebrow.color = AccentColor;
+            title.text = $"TEN DAYS\n<color={UITheme.GoldHex}><size=82%>TO SUNDOWN</size></color>";
+            title.color = UITheme.Cream;
+            title.lineSpacing = -48f;
+            var shadow = title.gameObject.AddComponent<Shadow>();
+            shadow.effectColor = UITheme.Charcoal;
+            shadow.effectDistance = new Vector2(6f, -6f);
 
-            var title = Stacked(SundownFonts.UseTitle(NewText("Title", column, 128, FontStyles.Normal, TextAlignmentOptions.TopLeft,
-                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero)));
-            title.text = "TEN DAYS\nTO <color=#F28C3A>SUNDOWN</color>";
-            title.lineSpacing = -50f; // Anton has a tall line gap; pull the two lines together
-            title.color = TextColor;
+            var tagline = NewText("Tagline", logo, 32, FontStyles.Italic, TextAlignmentOptions.TopLeft,
+                new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, -60f), new Vector2(0f, 0f));
+            tagline.text = "The bunker has room for two. Make sure one of them is you.";
+            tagline.color = UITheme.Cream;
+            tagline.characterSpacing = 2f;
+        }
 
-            var tagline = Stacked(NewText("Tagline", column, 30, FontStyles.Italic, TextAlignmentOptions.Left,
-                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero));
-            tagline.text = "Survive the night. Trust no one.";
-            tagline.color = new Color(TextColor.r, TextColor.g, TextColor.b, 0.75f);
+        // 01-4 to 01-7: the buttons sit in the left half so thumbs reach them on phones
+        private void BuildButtons()
+        {
+            const float left = 120f, width = 492f;
+            float y = -510f;
 
-            var gap = NewRect("Gap", column, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero).gameObject.AddComponent<LayoutElement>();
-            gap.minHeight = 20f;
-            gap.flexibleHeight = 1f;
-
-            var buttons = NewRect("Buttons", column, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-            var size = buttons.gameObject.AddComponent<LayoutElement>();
-            size.preferredWidth = 440f;
-            var stack = buttons.gameObject.AddComponent<VerticalLayoutGroup>();
-            stack.spacing = 14f;
-            stack.childControlWidth = stack.childControlHeight = true;
-            stack.childForceExpandWidth = true;
-            stack.childForceExpandHeight = false;
-
-            Button play = MakeButton(buttons, "Play", AccentColor, OnPlayPressed, 34);
-            play.GetComponent<LayoutElement>().preferredHeight = 88f;
-            foreach ((string text, UnityEngine.Events.UnityAction action) in new (string, UnityEngine.Events.UnityAction)[]
-                     {
-                         ("How to play", OnHowToPlayPressed),
-                         ("Settings", OnSettingsPressed),
-                         ("Quit", OnQuitPressed),
-                     })
+            RectTransform Slot(float height)
             {
-                MakeButton(buttons, text, ButtonColor, action, 26).GetComponent<LayoutElement>().preferredHeight = 64f;
+                var slot = NewRect("Slot", canvas, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(left, y - height), new Vector2(left + width, y));
+                y -= height + 24f;
+                return slot;
             }
 
-            var footer = Stacked(NewText("Footer", column, 18, FontStyles.Normal, TextAlignmentOptions.BottomLeft,
+            Chunky(Slot(92f), "PLAY ONLINE", UITheme.Brick, UITheme.Cream, 46, OnPlayOnlinePressed);
+            Chunky(Slot(80f), "PLAY VS BOTS", UITheme.Cream, UITheme.Charcoal, 38, OnPlayBotsPressed);
+            Button tutorial = Chunky(Slot(80f), "TUTORIAL", UITheme.Gold, UITheme.Charcoal, 38, OnTutorialPressed);
+
+            // NEW tag until the tutorial has been opened once
+            var tag = NewRect("New", tutorial.transform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-122f, -20f), new Vector2(-28f, 20f));
+            Rounded(tag.gameObject.AddComponent<Image>(), UITheme.Charcoal, 6).raycastTarget = false;
+            var tagText = SundownFonts.UseTitle(NewText("Label", tag, 22, FontStyles.Normal, TextAlignmentOptions.Center,
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero));
-            footer.text = "A card game of supplies, secrets and the last two seats.";
-            footer.color = new Color(TextColor.r, TextColor.g, TextColor.b, 0.45f);
-            footer.margin = new Vector4(0f, 14f, 0f, 0f);
+            tagText.text = "NEW";
+            tagText.color = UITheme.Gold;
+            tagText.characterSpacing = 8f;
+            newTag = tag.gameObject;
+            newTag.SetActive(PlayerPrefs.GetInt(TutorialSeenKey, 0) == 0);
+
+            // Secondary row: Cards, Profile, Settings
+            RectTransform row = Slot(68f);
+            var layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
+            layout.spacing = 18f;
+            layout.childControlWidth = layout.childControlHeight = true;
+            layout.childForceExpandWidth = layout.childForceExpandHeight = true;
+            foreach ((string text, UnityEngine.Events.UnityAction action) in new (string, UnityEngine.Events.UnityAction)[]
+                     {
+                         ("CARDS", OnCardsPressed), ("PROFILE", OnProfilePressed), ("SETTINGS", OnSettingsPressed),
+                     })
+            {
+                var cell = NewRect(text, row, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+                Chunky(cell, text, UITheme.Charcoal, UITheme.Cream, 28, action);
+            }
+
+            // Quit only on PC builds
+            if (!Application.isMobilePlatform)
+            {
+                RectTransform quitSlot = Slot(58f);
+                quitSlot.offsetMax = new Vector2(left + 180f, quitSlot.offsetMax.y);
+                Button quit = Chunky(quitSlot, "QUIT", new Color(0f, 0f, 0f, 0.25f), UITheme.Cream, 26, OnQuitPressed, shadowed: false);
+                var outline = quit.gameObject.AddComponent<Outline>();
+                outline.effectColor = UITheme.WithAlpha(UITheme.Cream, 0.5f);
+                outline.effectDistance = new Vector2(2f, -2f);
+            }
         }
 
-        // Text in the column takes its full width and exactly the height it needs
-        private static TextMeshProUGUI Stacked(TextMeshProUGUI label)
+        /// <summary>A flat poster button: Anton label, a hard charcoal shadow under it, hover tilt and press-down.</summary>
+        private static Button Chunky(RectTransform slot, string text, Color fill, Color textColor, float size,
+            UnityEngine.Events.UnityAction onClick, bool shadowed = true)
         {
-            label.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
-            return label;
+            if (shadowed)
+            {
+                var shadow = NewRect("Shadow", slot, Vector2.zero, Vector2.one, new Vector2(0f, -6f), new Vector2(0f, -6f));
+                Rounded(shadow.gameObject.AddComponent<Image>(), UITheme.WithAlpha(UITheme.Charcoal, 0.9f), 8).raycastTarget = false;
+            }
+
+            var face = NewRect(text, slot, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            Image background = Rounded(face.gameObject.AddComponent<Image>(), Color.white, 8);
+            var button = face.gameObject.AddComponent<Button>();
+            button.targetGraphic = background;
+            ColorBlock colors = Tints(fill);
+            colors.highlightedColor = fill; // the tilt and scale show hover; keep the colour true
+            button.colors = colors;
+            button.onClick.AddListener(onClick);
+            face.gameObject.AddComponent<MenuButtonFx>();
+
+            var label = SundownFonts.UseTitle(NewText("Label", face, size, FontStyles.Normal, TextAlignmentOptions.Left,
+                Vector2.zero, Vector2.one, new Vector2(30f, 0f), new Vector2(-20f, 0f)));
+            if (slot.rect.width < 200f || text.Length <= 8 && size <= 30) label.alignment = TextAlignmentOptions.Center;
+            label.text = text;
+            label.color = textColor;
+            label.characterSpacing = 4f;
+            return button;
         }
 
-
-        // ---------- Profile badge ----------
-
-        /// <summary>Top right: your initial, name and streak. Tap it to open your profile.</summary>
-        private void BuildProfileBadge()
+        // 01-9: name, wins and streak; tap to open the profile
+        private void BuildProfileChip()
         {
-            if (profileBadge != null) Destroy(profileBadge.gameObject);
+            if (profileChip != null) Destroy(profileChip.gameObject);
             PlayerProfile profile = PlayerProfile.Current;
             string name = MenuScreens.ProfileName;
 
-            profileBadge = NewRect("ProfileBadge", canvas, Vector2.one, Vector2.one, new Vector2(-460f, -132f), new Vector2(-48f, -48f));
-            Image background = Rounded(profileBadge.gameObject.AddComponent<Image>(), Color.white, 20);
-            var button = profileBadge.gameObject.AddComponent<Button>();
+            profileChip = NewRect("ProfileChip", canvas, Vector2.one, Vector2.one, new Vector2(-470f, -150f), new Vector2(-60f, -60f));
+            Image background = Rounded(profileChip.gameObject.AddComponent<Image>(), Color.white, 45);
+            var button = profileChip.gameObject.AddComponent<Button>();
             button.targetGraphic = background;
-            button.colors = Tints(new Color(PanelColor.r, PanelColor.g, PanelColor.b, 0.85f));
+            button.colors = Tints(UITheme.WithAlpha(UITheme.Charcoal, 0.85f));
             button.onClick.AddListener(OnProfilePressed);
+            var edge = profileChip.gameObject.AddComponent<Outline>();
+            edge.effectColor = UITheme.WithAlpha(UITheme.Cream, 0.18f);
 
-            RectTransform avatar = MenuScreens.Avatar(profileBadge, name, 58f);
+            RectTransform avatar = MenuScreens.Avatar(profileChip, name, 62f);
             avatar.anchorMin = avatar.anchorMax = new Vector2(0f, 0.5f);
-            avatar.anchoredPosition = new Vector2(14f + 29f, 0f);
+            avatar.anchoredPosition = new Vector2(16f + 31f, 0f);
 
-            var title = NewText("Name", profileBadge, 26, FontStyles.Bold, TextAlignmentOptions.BottomLeft,
-                new Vector2(0f, 0.5f), Vector2.one, new Vector2(88f, 0f), new Vector2(-16f, -8f));
+            var title = NewText("Name", profileChip, 28, FontStyles.Bold, TextAlignmentOptions.BottomLeft,
+                new Vector2(0f, 0.5f), Vector2.one, new Vector2(94f, 0f), new Vector2(-20f, -6f));
             title.text = name;
-            title.color = TextColor;
+            title.color = UITheme.Cream;
 
-            var stats = NewText("Stats", profileBadge, 18, FontStyles.Normal, TextAlignmentOptions.TopLeft,
-                Vector2.zero, new Vector2(1f, 0.5f), new Vector2(88f, 6f), new Vector2(-16f, -2f));
-            stats.text = profile.gamesPlayed == 0 ? "<color=#A9AEBD>View profile</color>"
-                : $"<color=#E07A2E><b>{profile.currentStreak}</b> streak</color><color=#A9AEBD>   ·   best {profile.longestStreak}   ·   {profile.wins} wins</color>";
+            var stats = NewText("Stats", profileChip, 20, FontStyles.Normal, TextAlignmentOptions.TopLeft,
+                Vector2.zero, new Vector2(1f, 0.5f), new Vector2(94f, 6f), new Vector2(-20f, -2f));
+            stats.text = profile.gamesPlayed == 0 ? "View profile" : $"{profile.wins} wins  ·  streak {profile.currentStreak}";
+            stats.color = UITheme.WithAlpha(UITheme.Cream, 0.7f);
         }
-        /// <summary>Five face-down cards fanned out over the setting sun.</summary>
-        private void BuildCardFan()
+
+        private void BuildFooter()
         {
-            fan = NewRect("CardFan", canvas, new Vector2(0.73f, 0.42f), new Vector2(0.73f, 0.42f), Vector2.zero, Vector2.zero);
-            fan.pivot = new Vector2(0.5f, 0f);
-            const int count = 5;
-            for (int i = 0; i < count; i++)
-            {
-                float fromMiddle = i - (count - 1) / 2f;
-                RectTransform card = CardBack(fan, new Vector2(220f, 308f));
-                card.pivot = new Vector2(0.5f, 0f);
-                card.anchoredPosition = new Vector2(fromMiddle * 96f, -Mathf.Abs(fromMiddle) * 22f);
-                card.localEulerAngles = new Vector3(0f, 0f, -fromMiddle * 11f);
-            }
+            var footer = NewText("Footer", canvas, 20, FontStyles.Normal, TextAlignmentOptions.BottomRight,
+                new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-500f, 24f), new Vector2(-36f, 60f));
+            footer.text = $"v{Application.version}  ·  Vartcade Studio";
+            footer.color = UITheme.WithAlpha(UITheme.Cream, 0.45f);
         }
     }
 }

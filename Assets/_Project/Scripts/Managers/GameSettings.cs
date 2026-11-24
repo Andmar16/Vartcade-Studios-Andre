@@ -23,6 +23,13 @@ namespace TDTS.Managers
             }
         }
 
+        /// <summary>Stops background motion, ash and the flickering bulb (wireframes: Reduce motion).</summary>
+        public static bool ReduceMotion
+        {
+            get => PlayerPrefs.GetInt("settings.reduceMotion", 0) == 1;
+            set => PlayerPrefs.SetInt("settings.reduceMotion", value ? 1 : 0);
+        }
+
         public static bool Fullscreen
         {
             get => PlayerPrefs.GetInt(FullscreenKey, 1) == 1;

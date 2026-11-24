@@ -124,13 +124,14 @@ namespace TDTS.UI
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             summary.color = new Color32(0xB8, 0xBC, 0xC4, 255);
 
-            var buttons = NewRect("Buttons", header, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-640f, -52f), Vector2.zero);
+            var buttons = NewRect("Buttons", header, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-860f, -52f), Vector2.zero);
             var row = buttons.gameObject.AddComponent<HorizontalLayoutGroup>();
             row.spacing = 12f;
             row.childAlignment = TextAnchor.UpperRight;
             row.childControlWidth = row.childControlHeight = true;
             row.childForceExpandWidth = row.childForceExpandHeight = true;
 
+            NewButton(buttons, "Menu", ButtonColor, () => UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu"));
             NewButton(buttons, "Show fronts", ButtonColor, () => ShowAll(false));
             NewButton(buttons, "Show backs", ButtonColor, () => ShowAll(true));
             NewButton(buttons, "New shuffle", AccentColor, Deal);
