@@ -231,8 +231,9 @@ namespace TDTS.UI
                 {
                     Stretch((RectTransform)cluster);
                     DisableLayout(cluster);
-                    Keep(cluster.Find("DrawPile"), 820f, 770f);
-                    Keep(cluster.Find("RondoWheel"), 1070f, 770f);
+                    // Low enough to clear the name plates above them
+                    Keep(cluster.Find("DrawPile"), 820f, 785f);
+                    Keep(cluster.Find("RondoWheel"), 1070f, 790f);
                     Keep(cluster.Find("PlaySpace"), 1380f, 790f);
                 }
             }
@@ -289,7 +290,7 @@ namespace TDTS.UI
         private static void PlaceZone(Transform zone, float x, float width)
         {
             if (zone == null) return;
-            Place((RectTransform)zone, x, TableEdgeY + 74f, width, 128f);
+            Place((RectTransform)zone, x, TableEdgeY + 64f, width, 112f);
         }
 
         /// <summary>Moves a piece to a spot (centre, in reference pixels from the top-left), keeping its size.</summary>

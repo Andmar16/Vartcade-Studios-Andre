@@ -54,8 +54,7 @@ namespace TDTS.UI
                 }
             }
 
-            if (gm.LimitActions)
-                sb.Append($"\n<b>Actions left: {gm.ActionsLeft}</b>");
+            // Actions left is on the top bar already, so the log only tells what happened
 
             label.text = sb.ToString();
         }
