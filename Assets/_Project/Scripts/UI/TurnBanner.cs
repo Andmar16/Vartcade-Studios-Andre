@@ -15,7 +15,7 @@ namespace TDTS.UI
     /// </summary>
     public class TurnBanner : MonoBehaviour
     {
-        private const float FadeInSeconds = 0.2f, ShowSeconds = 1.4f, FadeOutSeconds = 0.4f;
+        private const float FadeInSeconds = 0.16f, ShowSeconds = 1.2f, FadeOutSeconds = 0.4f;
 
         private IGameView view;
         private int shownForTurn = -1;
@@ -50,7 +50,7 @@ namespace TDTS.UI
             // Let a Rondo spin start, then wait for it and its banner to finish
             yield return new WaitForSeconds(0.1f);
             RondoDial rondo = FindFirstObjectByType<RondoDial>();
-            while ((rondo != null && rondo.IsAnnouncing) || GameObject.Find("RondoBanner") != null)
+            while ((rondo != null && rondo.IsAnnouncing) || GameObject.Find("RondoBanner") != null || GameObject.Find("MorningRecap") != null)
                 yield return null;
 
             // A skipped turn, or one that's already over, gets no popup
@@ -64,7 +64,7 @@ namespace TDTS.UI
             for (float t = 0f; t < 1f; t += Time.deltaTime / FadeInSeconds)
             {
                 fade.alpha = t;
-                card.localScale = Vector3.one * Mathf.Lerp(0.9f, 1f, t);
+                card.localScale = Vector3.one * Mathf.Lerp(1.45f, 1f, t * t); // stamps down
                 yield return null;
             }
             fade.alpha = 1f;
@@ -82,9 +82,8 @@ namespace TDTS.UI
         }
 
         /// <summary>
-        /// The table dims a little, and a rounded card across the middle shows the phase,
-        /// YOUR TURN, and how many actions you have. The card has an orange edge so it stands
-        /// out from the board, which is nearly the same dark blue.
+        /// Wireframe 03-8: a gold YOUR TURN stamp, tilted a little, with the phase and how many
+        /// actions you have underneath. The table dims slightly behind it.
         /// </summary>
         private void Build(Transform canvas)
         {
@@ -95,36 +94,29 @@ namespace TDTS.UI
             fade.interactable = false;
             fade.alpha = 0f;
             Image dim = banner.gameObject.AddComponent<Image>();
-            dim.color = new Color(0f, 0f, 0f, 0.45f);
+            dim.color = new Color(0f, 0f, 0f, 0.35f);
             dim.raycastTarget = false;
 
             card = NewRect("Card", banner, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new Vector2(-340f, -110f), new Vector2(340f, 110f));
-            var edge = NewRect("Edge", card, Vector2.zero, Vector2.one, new Vector2(-3f, -3f), new Vector2(3f, 3f));
-            Rounded(edge.gameObject.AddComponent<Image>(), AccentColor, 24).raycastTarget = false;
+                new Vector2(-330f, -105f), new Vector2(330f, 105f));
+            card.localEulerAngles = new Vector3(0f, 0f, -3f);
+            var shadow = NewRect("Shadow", card, Vector2.zero, Vector2.one, new Vector2(8f, -10f), new Vector2(8f, -10f));
+            Rounded(shadow.gameObject.AddComponent<Image>(), UITheme.Charcoal, 10).raycastTarget = false;
             var face = NewRect("Face", card, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-            Rounded(face.gameObject.AddComponent<Image>(), PanelColor, 24).raycastTarget = false;
-
-            var stripe = NewRect("Stripe", card, Vector2.zero, new Vector2(0f, 1f), new Vector2(0f, 14f), new Vector2(10f, -14f));
-            Rounded(stripe.gameObject.AddComponent<Image>(), AccentColor, 4).raycastTarget = false;
+            Rounded(face.gameObject.AddComponent<Image>(), UITheme.Gold, 10).raycastTarget = false;
 
             bool night = view.CurrentState == GameState.NightPhase;
-            var eyebrow = NewText("Eyebrow", card, 20, FontStyles.Bold, TextAlignmentOptions.Center,
-                new Vector2(0f, 1f), Vector2.one, new Vector2(30f, -58f), new Vector2(-30f, -20f));
-            eyebrow.text = night ? $"NIGHT {view.CurrentDay}  ·  EYES CLOSED" : $"DAY {view.CurrentDay}";
-            eyebrow.characterSpacing = 14f;
-            eyebrow.color = new Color(TextColor.r, TextColor.g, TextColor.b, 0.7f);
-
-            var title = SundownFonts.UseTitle(NewText("Title", card, 72, FontStyles.Normal, TextAlignmentOptions.Center,
-                Vector2.zero, Vector2.one, new Vector2(30f, 50f), new Vector2(-30f, -50f)));
+            var title = SundownFonts.UseTitle(NewText("Title", card, 96, FontStyles.Normal, TextAlignmentOptions.Center,
+                Vector2.zero, Vector2.one, new Vector2(30f, 54f), new Vector2(-30f, -14f)));
             title.text = "YOUR TURN";
-            title.color = AccentColor;
+            title.color = UITheme.Charcoal;
 
-            var actions = NewText("Actions", card, 24, FontStyles.Normal, TextAlignmentOptions.Center,
-                Vector2.zero, new Vector2(1f, 0f), new Vector2(30f, 18f), new Vector2(-30f, 58f));
+            var actions = NewText("Actions", card, 26, FontStyles.Bold, TextAlignmentOptions.Center,
+                Vector2.zero, new Vector2(1f, 0f), new Vector2(30f, 16f), new Vector2(-30f, 60f));
             int n = view.ActionsLeft;
-            actions.text = n == 1 ? "1 action" : $"{n} actions";
-            actions.color = TextColor;
+            string count = n == 1 ? "1 action" : $"{n} actions";
+            actions.text = night ? $"Night {view.CurrentDay}: {count}, one must be a Peek" : $"Day {view.CurrentDay}: {count}";
+            actions.color = UITheme.Charcoal;
         }
     }
 }

@@ -28,6 +28,9 @@ namespace TDTS.UI
         private RectTransform fanArea, fan;
         private bool sideways;
         private string shownHand = "";
+        private RectTransform puppetWindow;
+        private Puppet puppet;
+        private int puppetSeat;
 
         private void Start()
         {
@@ -100,6 +103,7 @@ namespace TDTS.UI
             // Bot seats show their strategy, e.g. "(Aggressive bot)"
             string botTag = BotController.Current != null ? BotController.Current.TagFor(p) : "";
             label.text = $"<b>{p.playerName}</b><size=60%>{botTag}</size>\n<size=65%>{cards}  ·  {status}</size>";
+            ShowPuppet(turn);
             LayOutCards(p.hand);
 
             // Your pick for Trade / Steal wins over the "their turn" colour
@@ -107,6 +111,22 @@ namespace TDTS.UI
                 background.color = GameView.Current.SelectedTarget == p ? Glass(selectedColor)
                     : active ? Glass(activeColor)
                     : normalColor;
+        }
+
+        /// <summary>Their puppet, numbered by their seat in the turn order.</summary>
+        private void ShowPuppet(int seat)
+        {
+            if (puppetWindow == null || seat == puppetSeat) return;
+            if (puppet != null) Destroy(puppet.gameObject);
+            puppetSeat = seat;
+            puppet = Puppet.Create(puppetWindow, new Vector2(0.5f, 0f), seat, 130f);
+            ((RectTransform)puppet.transform).anchoredPosition = new Vector2(0f, -64f);
+        }
+
+        // Everyone's eyes are closed at Night (wireframe 04-2)
+        private void Update()
+        {
+            if (puppet != null && GameView.Current != null) puppet.EyesClosed = GameView.Current.EyesClosed;
         }
 
         // Highlights stay a little see-through, like the panel itself
@@ -128,8 +148,16 @@ namespace TDTS.UI
             RectTransform text = label.rectTransform;
             text.anchorMin = new Vector2(0f, split);
             text.anchorMax = Vector2.one;
-            text.offsetMin = new Vector2(10f, 0f);
+            text.offsetMin = new Vector2(84f, 0f); // room for their puppet on the left
             text.offsetMax = new Vector2(-10f, -8f);
+
+            // Wireframe 03-2: a placeholder puppet bust for this seat, in a round window
+            puppetWindow = SundownArt.NewRect("PuppetWindow", transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(10f, -76f), new Vector2(74f, -12f));
+            Image window = puppetWindow.gameObject.AddComponent<Image>();
+            window.sprite = SundownArt.CircleSprite();
+            window.color = UITheme.SkyMid;
+            window.raycastTarget = false;
+            puppetWindow.gameObject.AddComponent<Mask>();
             label.enableAutoSizing = true;
             label.fontSizeMin = 14f;
             label.fontSizeMax = 32f;

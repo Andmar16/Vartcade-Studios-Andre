@@ -119,6 +119,9 @@ namespace TDTS.UI
             button.transition = Selectable.Transition.None;
             button.onClick.AddListener(() => OnSlotClicked(index));
 
+            // Hover (PC) or long-press (phone) shows what the card does (wireframe 03-10)
+            CardTooltip.Attach(slot.root, () => CardAt(index), () => CardAt(index)?.peeked == true);
+
             // Centre pivot, so a picked card grows evenly from its middle
             var rect = (RectTransform)slot.root.transform;
             rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
@@ -127,6 +130,12 @@ namespace TDTS.UI
             typeLabels.Add(null);
             peekedMarks.Add(null);
             StyleSlot(index);
+        }
+
+        private static CardData CardAt(int index)
+        {
+            var hand = GameView.Current?.LocalPlayer?.hand;
+            return hand != null && index >= 0 && index < hand.Count ? hand[index] : null;
         }
 
         /// <summary>More cards than slots: add copies of the scene's slot.</summary>
@@ -241,7 +250,7 @@ namespace TDTS.UI
                 new Vector2(-20f, -20f), new Vector2(-8f, -8f));
             Image dot = mark.gameObject.AddComponent<Image>();
             dot.sprite = SundownArt.CircleSprite();
-            dot.color = SelectedBorder;
+            dot.color = UITheme.Teal; // peeked marker, only you see it (wireframe 04-4)
             dot.raycastTarget = false;
             peekedMarks[i] = mark.gameObject;
         }
@@ -280,7 +289,10 @@ namespace TDTS.UI
                 Color color = CardView.ColorFor(card, revealed);
                 cards[i].background.color = color;
                 cards[i].label.color = typeLabels[i].color = CardView.TextColorOn(color);
-                cards[i].label.text = revealed ? card.BackName : card.FrontName;
+                cards[i].label.text = CardView.WithSymbol(card, revealed, revealed ? card.BackName : card.FrontName);
+                // A used Morning card gets a grey veil (wireframe 06-5)
+                if (!revealed && card.HasMorningFront && card.frontUsed)
+                    cards[i].background.color = Color.Lerp(color, new Color(0.45f, 0.45f, 0.45f), 0.55f);
                 typeLabels[i].text = revealed ? $"BACK · {CardView.TypeName(card, true)}"
                     : card.HasMorningFront && card.frontUsed ? "MORNING ACTION · USED"
                     : CardView.TypeName(card, false);
@@ -336,4 +348,4 @@ namespace TDTS.UI
             }
         }
     }
-}
+}

@@ -28,14 +28,18 @@ namespace TDTS.UI
         private Button declineButton;
         private Button nightPlayButton;
         private Button peekButton;
-        private TextMeshProUGUI declineLabel;
+        private TextMeshProUGUI declineLabel, stealLabel, swapLabel;
 
         private void Start()
         {
             // Style first, so the copies made below come out matching
-            foreach (Button button in new[] { tradeButton, scavengeButton, playCardButton, stealButton, swapButton })
-                Style(button, SundownArt.ButtonColor);
-            Style(skipButton, SundownArt.AccentColor);
+            // Wireframe 03-12 / 04-5: Day buttons brick with Play card in gold, Night buttons dark teal
+            foreach (Button button in new[] { tradeButton, scavengeButton })
+                Style(button, UITheme.Brick);
+            Style(playCardButton, UITheme.Gold);
+            foreach (Button button in new[] { stealButton, swapButton })
+                Style(button, UITheme.TealDark);
+            Style(skipButton, UITheme.Orange);
 
             IGameView gm = GameView.Current;
             if (gm == null) return;
@@ -54,12 +58,15 @@ namespace TDTS.UI
             nightPlayButton = CopyOf(stealButton, "Play card", gm.PlaySelectedForLocalPlayer);
             // Tapping a card at Night only picks it; this looks at the back of the picked card (1 action)
             peekButton = CopyOf(stealButton, "Peek", () => gm.PeekForLocalPlayer(gm.SelectedCardIndex));
-            Style(peekButton, SundownArt.AccentColor);
+            Style(peekButton, UITheme.Gold);
             peekButton.transform.SetSiblingIndex(stealButton.transform.GetSiblingIndex()); // first in the row
             acceptButton = CopyOf(scavengeButton, "Accept trade", () => gm.AnswerTradeForLocalPlayer(true));
-            Style(acceptButton, SundownArt.AccentColor);
+            Style(acceptButton, UITheme.Gold);
             declineButton = CopyOf(scavengeButton, "Decline", () => gm.AnswerTradeForLocalPlayer(false));
+            Style(declineButton, UITheme.Brick);
             declineLabel = declineButton.GetComponentInChildren<TextMeshProUGUI>();
+            stealLabel = stealButton.GetComponentInChildren<TextMeshProUGUI>();
+            swapLabel = swapButton.GetComponentInChildren<TextMeshProUGUI>();
 
             // The added buttons don't fit at their scene width, so let each row share its width out
             FitToRow(scavengeButton);
@@ -114,6 +121,10 @@ namespace TDTS.UI
             // One Steal or Swap a night
             stealButton.interactable = night && !gm.StoleOrSwappedThisTurn;
             swapButton.interactable = night && !gm.StoleOrSwappedThisTurn;
+            // Disabled buttons say why (wireframe 04-5)
+            string reason = night && gm.StoleOrSwappedThisTurn ? "\n<size=60%>One per Night</size>" : "";
+            if (stealLabel != null) stealLabel.text = "Steal" + reason;
+            if (swapLabel != null) swapLabel.text = "Swap" + reason;
             skipButton.interactable = night && gm.PeeksThisTurn > 0;
             if (nightPlayButton != null) nightPlayButton.interactable = night && !PickedCardIsUnplayable(gm, false);
             if (peekButton != null) peekButton.interactable = night && !PickedCardIsPeeked(gm);
@@ -163,7 +174,8 @@ namespace TDTS.UI
 
             TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>();
             if (label == null) return;
-            label.color = SundownArt.TextColor;
+            // Charcoal text on the light gold and orange buttons, cream on the dark ones
+            label.color = color.grayscale > 0.5f ? UITheme.Charcoal : UITheme.Cream;
             label.fontStyle = FontStyles.Bold;
             label.enableAutoSizing = true;
             label.fontSizeMin = 14f;

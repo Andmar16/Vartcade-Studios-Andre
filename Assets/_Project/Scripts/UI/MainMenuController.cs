@@ -227,6 +227,10 @@ namespace TDTS.UI
             label.text = text;
             label.color = textColor;
             label.characterSpacing = 4f;
+            label.textWrappingMode = TextWrappingModes.NoWrap; // "SETTINGS" stays on one line
+            label.enableAutoSizing = true;
+            label.fontSizeMin = 16f;
+            label.fontSizeMax = size;
             return button;
         }
 

@@ -44,6 +44,7 @@ namespace TDTS.UI
             Button button = go.GetComponent<Button>();
             button.transition = Selectable.Transition.None;
             button.onClick.AddListener(view.Flip);
+            CardTooltip.Attach(go, () => view.card, () => view.showingBack);
 
             view.sideLabel = MakeLabel(go.transform, "Side", 11, FontStyles.Bold, TextAlignmentOptions.TopLeft,
                 new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(8f, -26f), new Vector2(-8f, -6f));
@@ -85,7 +86,7 @@ namespace TDTS.UI
             sideLabel.color = nameLabel.color = typeLabel.color = TextColorOn(color);
 
             sideLabel.text = showingBack ? "BACK" : "FRONT";
-            nameLabel.text = showingBack ? card.BackName : card.FrontName;
+            nameLabel.text = WithSymbol(card, showingBack, showingBack ? card.BackName : card.FrontName);
             typeLabel.text = TypeName(card, showingBack);
         }
 
@@ -106,7 +107,7 @@ namespace TDTS.UI
             float pad = Mathf.Max(3f, size.x * 0.07f);
             var name = MakeLabel(rect, "Name", size.y * 0.16f, FontStyles.Bold, TextAlignmentOptions.TopLeft,
                 Vector2.zero, Vector2.one, new Vector2(pad, size.y * 0.24f), new Vector2(-pad, -pad));
-            name.text = card.FrontName;
+            name.text = WithSymbol(card, false, card.FrontName, inline: true);
             name.enableAutoSizing = true;
             name.fontSizeMin = 7f;
             name.fontSizeMax = size.y * 0.16f;
@@ -120,6 +121,19 @@ namespace TDTS.UI
 
             name.color = type.color = TextColorOn(color);
             return rect;
+        }
+
+        /// <summary>
+        /// Wireframe 06-1/06-2: Supply sides carry their kind's shape (Food circle, Water drop,
+        /// Medicine plus, Entertainment diamond), so colour is never the only clue.
+        /// </summary>
+        public static string WithSymbol(CardData card, bool back, string name, bool inline = false)
+        {
+            SupplyKind? kind = back ? (card.back == BackType.Supply ? card.backSupply : (SupplyKind?)null)
+                : (card.front == FrontType.Supply || card.front == FrontType.BunkerKey ? card.frontSupply : (SupplyKind?)null);
+            if (kind == null) return name;
+            string symbol = TableHud.KindSymbol(kind.Value);
+            return inline ? $"{symbol} {name}" : $"<size=130%>{symbol}</size>\n{name}";
         }
 
         /// <summary>Card colour for one side, shared with the hand row so cards look the same everywhere.</summary>

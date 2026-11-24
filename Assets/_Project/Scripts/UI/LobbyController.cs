@@ -55,6 +55,7 @@ namespace TDTS.UI
             public TextMeshProUGUI name;
             public GameObject hostBadge;
             public GameObject youBadge;
+            public Puppet puppet;
         }
 
 
@@ -145,11 +146,16 @@ namespace TDTS.UI
             if (!seated) return;
 
             List<SessionManager.SeatInfo> seats = sessions.GetSeats();
-            codeText.text = sessions.JoinCode;
+            // Wireframe 02-1: grouped 3 + 3 so it's easy to read out
+            string code = sessions.JoinCode ?? "";
+            codeText.text = code.Length == 6 ? code.Substring(0, 3) + " " + code.Substring(3) : code;
             int bots = Mathf.Max(0, SessionManager.MinPlayers - seats.Count);
             countText.text = bots > 0
                 ? $"{seats.Count} of {SessionManager.MaxPlayers} seated  ·  {bots} bot{(bots == 1 ? "" : "s")} will fill the empty seats"
                 : $"{seats.Count} of {SessionManager.MaxPlayers} seated";
+            // Wireframe 02-2: bunker seats follow the table size (4 players = 2 seats, 5 or 6 = 3)
+            int tableSize = Mathf.Max(seats.Count, SessionManager.MinPlayers);
+            countText.text += $"  ·  {tableSize} players, {(tableSize >= 5 ? 3 : 2)} bunker seats";
 
             for (int i = 0; i < seatRows.Count; i++)
             {
@@ -163,7 +169,8 @@ namespace TDTS.UI
                 {
                     SessionManager.SeatInfo seat = seats[i];
                     row.avatar.color = SeatColors[i % SeatColors.Length];
-                    row.initial.text = seat.name.Substring(0, 1).ToUpperInvariant();
+                    row.initial.text = "";
+                    row.puppet.gameObject.SetActive(true);
                     row.initial.color = Color.white;
                     row.name.text = seat.name;
                     row.name.color = Color.white;
@@ -173,6 +180,7 @@ namespace TDTS.UI
                     bool bot = i < SessionManager.MinPlayers;
                     row.avatar.color = new Color32(0x24, 0x28, 0x38, 255);
                     row.initial.text = bot ? "B" : "";
+                    row.puppet.gameObject.SetActive(false);
                     row.initial.color = DimText;
                     row.name.text = bot ? "Open seat  <size=70%>a bot will play</size>" : "Open seat";
                     row.name.color = bot ? MutedText : DimText;
@@ -182,6 +190,31 @@ namespace TDTS.UI
             startButton.gameObject.SetActive(sessions.IsHost);
             waitingText.gameObject.SetActive(!sessions.IsHost);
             startLabel.text = bots > 0 ? $"Start game  <size=75%>({seats.Count} + {bots} bot{(bots == 1 ? "" : "s")})</size>" : "Start game";
+        }
+
+        private static readonly string[] FlavorLines =
+        {
+            "Pack light. The bunker has a strict two-guest policy.",
+            "Trust is a renewable resource. Supplies are not.",
+            "Somebody at this table is lying. Possibly you.",
+            "The sun sets in ten days. Your friendships, sooner.",
+            "Water, food, medicine, fun. Pick three. Steal the fourth.",
+        };
+        private TextMeshProUGUI flavorText;
+
+        private void LateUpdate()
+        {
+            if (flavorText == null && tablePanel != null)
+            {
+                flavorText = NewText("Flavor", tablePanel.transform.parent, 24, FontStyles.Italic, TextAlignmentOptions.Center,
+                    new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, 96f), new Vector2(0f, 140f));
+                flavorText.color = new Color(1f, 1f, 1f, 0.55f);
+            }
+            if (flavorText != null)
+            {
+                flavorText.gameObject.SetActive(tablePanel.activeSelf);
+                flavorText.text = FlavorLines[(int)(Time.unscaledTime / 6f) % FlavorLines.Length];
+            }
         }
 
         private void ShowStatus(string message)
@@ -306,6 +339,11 @@ namespace TDTS.UI
             avatarSize.preferredWidth = avatarSize.preferredHeight = 32f;
             row.initial = NewText("Initial", avatar, 20, FontStyles.Bold, TextAlignmentOptions.Center,
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+
+            // Wireframe 02-3: the seat's placeholder puppet, numbered by seat
+            avatar.gameObject.AddComponent<Mask>();
+            row.puppet = Puppet.Create(avatar, new Vector2(0.5f, 0f), index + 1, 64f);
+            ((RectTransform)row.puppet.transform).anchoredPosition = new Vector2(0f, -33f);
 
             row.name = NewText("Name", rect, 24, FontStyles.Normal, TextAlignmentOptions.MidlineLeft,
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);

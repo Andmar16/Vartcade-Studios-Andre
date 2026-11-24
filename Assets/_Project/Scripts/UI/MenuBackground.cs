@@ -75,7 +75,7 @@ namespace TDTS.UI
 
             // Sun low on the left, sitting in its own glow
             RectTransform sunLayer = AddLayer(root, "Sun", 6f);
-            sun = NewRect("Sun", sunLayer, new Vector2(0.13f, 0.11f), new Vector2(0.13f, 0.11f), Vector2.zero, Vector2.zero);
+            sun = NewRect("Sun", sunLayer, new Vector2(0.13f, 0.155f), new Vector2(0.13f, 0.155f), Vector2.zero, Vector2.zero);
             sun.sizeDelta = new Vector2(1f, 1f);
             sunHome = sun.anchoredPosition;
             var glow = NewRect("Glow", sun, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);

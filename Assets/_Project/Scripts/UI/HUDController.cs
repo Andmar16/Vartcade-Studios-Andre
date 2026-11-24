@@ -30,7 +30,7 @@ namespace TDTS.UI
         private static readonly Color SundownRed = new Color32(0xD9, 0x3B, 0x3B, 255);
         private static readonly Color MoonColor = new Color32(0xE8, 0xE4, 0xDA, 255);
         private static readonly Color SeatEmpty = new Color32(0x2A, 0x31, 0x45, 255);
-        private static readonly Color SeatTaken = new Color32(0x5F, 0xB8, 0x7A, 255);
+        private static readonly Color SeatTaken = UITheme.Gold;
 
         private TextMeshProUGUI dayNumber, countdown, phaseName, turnText, bunkerLabel;
         private RectTransform pips, seats;
@@ -48,6 +48,7 @@ namespace TDTS.UI
 
             Build();
             gameObject.AddComponent<TurnBanner>(); // "YOUR TURN" popup
+            gameObject.AddComponent<TableHud>();   // wireframe v0.1: kinds tracker, portrait, waiting banner, blackout, morning recap
         }
 
         // ---------- Building ----------
@@ -135,11 +136,13 @@ namespace TDTS.UI
             moonIcon.enabled = moonBite.enabled = night;
             phaseName.text = isSundown ? "" : view.CurrentState == GameState.NightPhase ? "NIGHT"
                 : view.CurrentDayRule == DayRule.Blackout ? "BLACKOUT" : "DAY";
+            // Wireframe 03-5: orange DAY, teal NIGHT
+            phaseName.color = night ? UITheme.Teal : UITheme.Orange;
 
             var active = view.ActivePlayer;
             turnText.text = isSundown ? "<color=#A9AEBD>The doors are closing...</color>"
                 : active == null ? ""
-                : view.IsLocalTurn ? $"<color=#E07A2E><b>Your turn</b></color>  <color=#A9AEBD>{ActionsLeft(view.ActionsLeft)}</color>"
+                : view.IsLocalTurn ? $"<color=#E5A836><b>Your turn</b></color>  <color=#A9AEBD>{ActionsLeft(view.ActionsLeft)}</color>"
                 : $"<color=#A9AEBD>{active.playerName} is playing</color>";
 
             LayOutSeats(view.BunkerCapacity, isSundown ? view.BunkerSeated : 0, isSundown);
