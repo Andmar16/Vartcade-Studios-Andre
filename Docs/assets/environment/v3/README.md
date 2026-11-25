@@ -31,3 +31,13 @@ these are the approved-direction drafts, built in layers so the same pictures ca
 ## Canvas
 "10 Days to Sundown: Environment Drafts" (claude.ai artifact), right-hand v3 column: THE GAME (20 s loop),
 Main menu, Dial + wheel, Room/Street (moving), states, props, pixel, overlays, cast.
+
+## Menu UI kit (v3.3, Nov 26)
+`ui/` holds the main-menu pieces, drawn in the same paper style, after the zip's button references:
+- `btn_play` (brick), `btn_bots` (cream), `btn_tutorial` (gold), `btn_shop` (teal): paper buttons with a bevel,
+  a darker lip, brass rivets and a pale cut edge. `btn_small` and `btn_quit`: wood plank buttons.
+  For Unity, 9-slice them with about 40 px borders so the rivets stay in the corners.
+- `mirror_back` + `mirror_glass` + `mirror_frame`: the vanity mirror the avatar looks out of (the glass is an
+  ellipse 400 x 510 centred at 260, 410 in the 520 x 720 frame). `plaque`: the name plate.
+- `shop`: TINDAHAN stall with 8 locked slots (no clothing yet).
+- `screen_frame`: 1920 x 1080 wooden frame with brass corners, inner shadow and a slight vignette; see-through middle.
