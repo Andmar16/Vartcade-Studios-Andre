@@ -189,15 +189,11 @@ namespace TDTS.UI
             }
 
             body = ArtPart(root, "Body", v.torso, torso, new Vector2(0.5f, 0f));
-            // Zip seam and seat number, like the team's coloured jumpsuit draft
-            var seam = NewRect("Seam", body, new Vector2(0.52f, 0.04f), new Vector2(0.52f, 0.9f), new Vector2(-2f, 0f), new Vector2(2f, 0f));
-            Image seamImage = seam.gameObject.AddComponent<Image>();
-            seamImage.color = UITheme.TealDark;
-            seamImage.raycastTarget = false;
+            // Default outfit is a dark grey tank top; the seat number is printed on it like a stencil
             var number = NewText("Seat", body, height * 0.07f, FontStyles.Bold, TextAlignmentOptions.Center,
                 new Vector2(0.14f, 0.5f), new Vector2(0.48f, 0.72f), Vector2.zero, Vector2.zero);
             number.text = seat.ToString("00");
-            number.color = UITheme.Brick;
+            number.color = UITheme.WithAlpha(UITheme.Cream, 0.55f);
 
             watchArm = ArtPart(root, "Arm", v.arm, arm, new Vector2(0.5f, 0.95f)); // swings from the shoulder
             head = ArtPart(root, "Head", v.head, headSprite, new Vector2(0.5f, 0.06f)); // nods from the neck
