@@ -286,19 +286,23 @@ namespace TDTS.UI
             Rounded(faceRect.gameObject.AddComponent<Image>(), face, 14).raycastTarget = false;
             banner.localEulerAngles = new Vector3(0f, 0f, 1.5f);
 
+            // The result's sticker badge hangs over the banner's left edge and moves in its own way
+            bool badge = RondoBadge.Create(banner, result, new Vector2(0f, 0.5f), new Vector2(40f, 0f), 270f) != null;
+            float left = badge ? 200f : 30f;
+
             var eyebrow = NewText("Eyebrow", banner, 22, FontStyles.Bold, TextAlignmentOptions.Center,
-                new Vector2(0f, 1f), Vector2.one, new Vector2(30f, -66f), new Vector2(-30f, -24f));
+                new Vector2(0f, 1f), Vector2.one, new Vector2(left, -66f), new Vector2(-30f, -24f));
             eyebrow.text = $"DAY {view.CurrentDay}  ·  THE RONDO LANDS ON";
             eyebrow.characterSpacing = 14f;
             eyebrow.color = ink;
 
             var name = SundownFonts.UseTitle(NewText("Name", banner, 76, FontStyles.Normal, TextAlignmentOptions.Center,
-                Vector2.zero, Vector2.one, new Vector2(30f, 60f), new Vector2(-30f, -60f)));
+                Vector2.zero, Vector2.one, new Vector2(left, 60f), new Vector2(-30f, -60f)));
             name.text = BoardController.RondoName(result).ToUpperInvariant();
             name.color = ink;
 
             var effect = NewText("Effect", banner, 26, FontStyles.Normal, TextAlignmentOptions.Center,
-                Vector2.zero, new Vector2(1f, 0f), new Vector2(30f, 22f), new Vector2(-30f, 66f));
+                Vector2.zero, new Vector2(1f, 0f), new Vector2(left, 22f), new Vector2(-30f, 66f));
             effect.text = Effect(result);
             effect.color = ink;
 
