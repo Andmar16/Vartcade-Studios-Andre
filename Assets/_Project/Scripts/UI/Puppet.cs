@@ -27,6 +27,57 @@ namespace TDTS.UI
 
         public bool EyesClosed { get; set; }
 
+        // ---------- The design team's characters (Resources/Puppets) ----------
+        // Parts from the team's PSD drafts (head, torso, front arm), coloured and set in a teal Silong jumpsuit.
+        // Each part sits in its box inside the puppet (0 to 1, y up), so the rig scales to any height.
+        private struct Rect4
+        {
+            public readonly float x0, y0, x1, y1;
+            public Rect4(float x0, float y0, float x1, float y1) { this.x0 = x0; this.y0 = y0; this.x1 = x1; this.y1 = y1; }
+        }
+
+        private class Variant
+        {
+            public readonly string key;
+            public readonly float aspect; // width / height
+            public readonly Color skin;   // for the eyelids
+            public readonly Rect4 torso, arm, head, eyeLeft, eyeRight; // eyes are inside the head box
+
+            public Variant(string key, float aspect, Color skin, Rect4 torso, Rect4 arm, Rect4 head, Rect4 eyeLeft, Rect4 eyeRight)
+            {
+                this.key = key; this.aspect = aspect; this.skin = skin;
+                this.torso = torso; this.arm = arm; this.head = head; this.eyeLeft = eyeLeft; this.eyeRight = eyeRight;
+            }
+        }
+
+        private static readonly Variant[] Variants =
+        {
+            new Variant("big_f", 0.5844f, new Color32(198, 138, 94, 255),
+                new Rect4(0.0000f, 0.0516f, 0.9728f, 0.5979f), new Rect4(0.6381f, 0.0000f, 1.0000f, 0.4788f), new Rect4(0.1038f, 0.4879f, 0.8833f, 1.0000f),
+                new Rect4(0.1647f, 0.4919f, 0.2546f, 0.5141f), new Rect4(0.4393f, 0.4770f, 0.5790f, 0.4978f)),
+            new Variant("big_m", 0.5719f, new Color32(232, 176, 134, 255),
+                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.0682f, 0.5064f, 0.7824f, 1.0000f),
+                new Rect4(0.2128f, 0.4173f, 0.3339f, 0.4476f), new Rect4(0.5303f, 0.4355f, 0.6165f, 0.4522f)),
+            new Variant("thin_f", 0.4734f, new Color32(185, 130, 86, 255),
+                new Rect4(0.0372f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6570f, 0.0000f, 0.9644f, 0.5019f), new Rect4(0.0000f, 0.5548f, 0.8900f, 1.0000f),
+                new Rect4(0.2218f, 0.4182f, 0.3127f, 0.4630f), new Rect4(0.4891f, 0.4182f, 0.5927f, 0.4458f)),
+            new Variant("thin_m", 0.4500f, new Color32(141, 90, 59, 255),
+                new Rect4(0.0000f, 0.0189f, 1.0000f, 0.6868f), new Rect4(0.6807f, 0.0000f, 1.0000f, 0.4955f), new Rect4(0.0689f, 0.5651f, 0.7261f, 1.0000f),
+                new Rect4(0.1023f, 0.5270f, 0.2353f, 0.5878f), new Rect4(0.4092f, 0.5443f, 0.6036f, 0.5965f)),
+        };
+
+        private bool drawn;            // built from the team's art rather than shapes
+        private GameObject lidLeft, lidRight;
+
+        /// <summary>Big seats use the big body, the others the thin one; the two characters of each body alternate.</summary>
+        private static Variant PickVariant(int seat, bool big)
+        {
+            int second = ((seat - 1) / 2) % 2; // seats 1-2 first look, 3-4 second, 5-6 first again
+            return Variants[(big ? 0 : 2) + second];
+        }
+
+        private static Sprite PartSprite(Variant v, string part) => Resources.Load<Sprite>($"Puppets/{v.key}_{part}");
+
         private static readonly Color[] Skins =
         {
             new Color32(0xE8, 0xB0, 0x86, 255), new Color32(0xC6, 0x8A, 0x5E, 255), new Color32(0x8D, 0x5A, 0x3B, 255),
@@ -44,7 +95,15 @@ namespace TDTS.UI
             float width = height * (big ? 0.62f : 0.46f);
             root.sizeDelta = new Vector2(width, height);
             var puppet = root.gameObject.AddComponent<Puppet>();
-            puppet.Build(root, seat, width, height, big);
+
+            Variant variant = PickVariant(seat, big);
+            Sprite torso = PartSprite(variant, "torso"), arm = PartSprite(variant, "arm"), head = PartSprite(variant, "head");
+            if (torso != null && arm != null && head != null)
+            {
+                root.sizeDelta = new Vector2(height * variant.aspect, height);
+                puppet.BuildDrawn(root, seat, height, variant, torso, arm, head);
+            }
+            else puppet.Build(root, seat, width, height, big);
             return puppet;
         }
 
@@ -83,8 +142,100 @@ namespace TDTS.UI
             nextWatch = Time.unscaledTime + Random.Range(10f, 18f);
         }
 
+        private void BuildDrawn(RectTransform root, int seat, float height, Variant v, Sprite torso, Sprite arm, Sprite headSprite)
+        {
+            drawn = true;
+            phase = seat * 1.7f;
+
+            body = ArtPart(root, "Body", v.torso, torso, new Vector2(0.5f, 0f));
+            // Zip seam and seat number, like the team's coloured jumpsuit draft
+            var seam = NewRect("Seam", body, new Vector2(0.52f, 0.04f), new Vector2(0.52f, 0.9f), new Vector2(-2f, 0f), new Vector2(2f, 0f));
+            Image seamImage = seam.gameObject.AddComponent<Image>();
+            seamImage.color = UITheme.TealDark;
+            seamImage.raycastTarget = false;
+            var number = NewText("Seat", body, height * 0.07f, FontStyles.Bold, TextAlignmentOptions.Center,
+                new Vector2(0.14f, 0.5f), new Vector2(0.48f, 0.72f), Vector2.zero, Vector2.zero);
+            number.text = seat.ToString("00");
+            number.color = UITheme.Brick;
+
+            watchArm = ArtPart(root, "Arm", v.arm, arm, new Vector2(0.5f, 0.95f)); // swings from the shoulder
+            head = ArtPart(root, "Head", v.head, headSprite, new Vector2(0.5f, 0.06f)); // nods from the neck
+
+            lidLeft = Lid(head, v.eyeLeft, v.skin);
+            lidRight = Lid(head, v.eyeRight, v.skin);
+
+            nextBlink = Time.unscaledTime + Random.Range(1.5f, 4f);
+            nextWatch = Time.unscaledTime + Random.Range(10f, 18f);
+        }
+
+        private static RectTransform ArtPart(Transform parent, string name, Rect4 box, Sprite sprite, Vector2 pivot)
+        {
+            var rect = NewRect(name, parent, new Vector2(box.x0, box.y0), new Vector2(box.x1, box.y1), Vector2.zero, Vector2.zero);
+            rect.pivot = pivot;
+            rect.anchoredPosition = Vector2.zero;
+            Image image = rect.gameObject.AddComponent<Image>();
+            image.sprite = sprite;
+            image.raycastTarget = false;
+            return rect;
+        }
+
+        /// <summary>A skin-coloured eyelid with a dark lash line, shown over one eye when it closes.</summary>
+        private static GameObject Lid(RectTransform head, Rect4 eye, Color skin)
+        {
+            var lid = NewRect("Lid", head, new Vector2(eye.x0, eye.y0), new Vector2(eye.x1, eye.y1), new Vector2(-3f, -3f), new Vector2(3f, 3f));
+            Image image = Rounded(lid.gameObject.AddComponent<Image>(), skin, 40);
+            image.raycastTarget = false;
+            var lash = NewRect("Lash", lid, new Vector2(0.05f, 0.2f), new Vector2(0.95f, 0.2f), new Vector2(0f, -1.5f), new Vector2(0f, 1.5f));
+            Image line = lash.gameObject.AddComponent<Image>();
+            line.color = UITheme.Charcoal;
+            line.raycastTarget = false;
+            lid.gameObject.SetActive(false);
+            return lid.gameObject;
+        }
+
+        private void UpdateDrawn(float t, bool still)
+        {
+            float breath = still ? 0f : Mathf.Sin(t * 1.6f + phase);
+            body.localScale = new Vector3(1f, 1f + breath * 0.012f, 1f);
+            head.anchoredPosition = new Vector2(0f, breath * 2f);
+
+            if (t >= nextBlink)
+            {
+                blinkUntil = t + 0.12f;
+                nextBlink = t + Random.Range(2f, 5f);
+            }
+            bool closed = EyesClosed || t < blinkUntil;
+            lidLeft.SetActive(closed);
+            lidRight.SetActive(closed);
+
+            // The head tilts a little toward the pointer
+            float tilt = 0f;
+            if (!still && !EyesClosed && Mouse.current != null)
+            {
+                Vector2 screen = RectTransformUtility.WorldToScreenPoint(null, head.position);
+                tilt = Mathf.Clamp((Mouse.current.position.ReadValue().x - screen.x) / 400f, -1f, 1f) * -4f;
+            }
+            float z = Mathf.LerpAngle(head.localEulerAngles.z, tilt + breath * 0.6f, 1f - Mathf.Exp(-6f * Time.unscaledDeltaTime));
+            head.localEulerAngles = new Vector3(0f, 0f, z);
+
+            // Now and then the arm lifts a little, as if checking a watch
+            if (!still && t >= nextWatch)
+            {
+                watchUntil = t + 1.6f;
+                nextWatch = t + Random.Range(12f, 20f);
+            }
+            float lift = t < watchUntil ? Mathf.Sin(Mathf.InverseLerp(watchUntil - 1.6f, watchUntil, t) * Mathf.PI) : 0f;
+            watchArm.localEulerAngles = new Vector3(0f, 0f, lift * 28f);
+        }
+
         private void Update()
         {
+            if (drawn)
+            {
+                UpdateDrawn(Time.unscaledTime, GameSettings.ReduceMotion);
+                return;
+            }
+
             float t = Time.unscaledTime;
             bool still = GameSettings.ReduceMotion;
 
