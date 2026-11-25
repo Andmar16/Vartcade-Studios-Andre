@@ -50,6 +50,9 @@ namespace TDTS.UI
 
         public static Sprite Side(CardData card, bool back) => back ? Back(card) : Front(card);
 
+        /// <summary>The face-down back (draw pile): "TEN DAYS TO SUNDOWN" on the Night card design.</summary>
+        public static Sprite FaceDown() => Load("Backs/back_facedown");
+
         /// <summary>The big Day / Night card shown when a phase starts (day is 1 to 10).</summary>
         public static Sprite Phase(int day, bool night) =>
             Load($"Days/{(night ? "night" : "day")}_{Mathf.Clamp(day, 1, 10):00}");

@@ -39,7 +39,8 @@ Game copies: `Assets/_Project/Resources/Cards/` (same names, 640 x 902), loaded 
 - Swap / Switch: matched by the printed title (to confirm).
 - Morning cards with a Trash back have no kind, so for now they borrow a kind's Trash art by
   Morning type. A plain Trash back would be cleaner.
-- No generic face-down back yet (draw pile). The draw pile keeps its drawn back for now.
+- Face-down back (draw pile): `back_facedown`, made by Claude from the Night card design with a
+  TEN DAYS TO SUNDOWN plate. Replace it any time with a team-drawn back of the same name.
 
 ## Must stay true (game rules)
 - The Bunker Key's FRONT is identical to its kind's Supply front (it uses the same file).

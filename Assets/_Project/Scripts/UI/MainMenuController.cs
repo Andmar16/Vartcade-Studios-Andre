@@ -130,10 +130,9 @@ namespace TDTS.UI
             logo = NewRect("Logo", holder, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             if (logoDropped) logo.anchoredPosition = Vector2.zero;
 
-            var title = SundownFonts.UseTitle(NewText("Title", logo, 150, FontStyles.Normal, TextAlignmentOptions.TopLeft,
+            var title = SundownFonts.Poster(NewText("Title", logo, 150, FontStyles.Normal, TextAlignmentOptions.TopLeft,
                 Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero));
             title.text = $"TEN DAYS\n<color={UITheme.GoldHex}><size=82%>TO SUNDOWN</size></color>";
-            title.color = UITheme.Cream;
             title.lineSpacing = -48f;
             var shadow = title.gameObject.AddComponent<Shadow>();
             shadow.effectColor = UITheme.Charcoal;
@@ -212,7 +211,7 @@ namespace TDTS.UI
             }
 
             var face = NewRect(text, slot, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-            Image background = Rounded(face.gameObject.AddComponent<Image>(), Color.white, 8);
+            Image background = Plate(face.gameObject.AddComponent<Image>(), Color.white, 8);
             var button = face.gameObject.AddComponent<Button>();
             button.targetGraphic = background;
             ColorBlock colors = Tints(fill);

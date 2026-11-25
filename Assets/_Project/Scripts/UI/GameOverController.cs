@@ -128,7 +128,7 @@ namespace TDTS.UI
             eyebrow.characterSpacing = 16f;
             eyebrow.color = AccentColor;
 
-            var verdict = SundownFonts.UseTitle(NewText("Verdict", panel, 84, FontStyles.Normal, TextAlignmentOptions.Center,
+            var verdict = SundownFonts.Poster(NewText("Verdict", panel, 84, FontStyles.Normal, TextAlignmentOptions.Center,
                 new Vector2(0f, 1f), Vector2.one, new Vector2(40f, -190f), new Vector2(-40f, -84f)));
             verdict.text = me == null ? "THE DOORS ARE CLOSED"
                 : survived ? "YOU MADE IT INSIDE" : "YOU WERE LEFT OUTSIDE";
@@ -249,10 +249,9 @@ namespace TDTS.UI
             var ground = NewRect("Ground", scene, Vector2.zero, new Vector2(1f, 0.3f), Vector2.zero, Vector2.zero);
             ground.gameObject.AddComponent<Image>().color = new Color32(0x0E, 0x0A, 0x0C, 255);
 
-            var title = SundownFonts.UseTitle(NewText("Title", scene, 40, FontStyles.Normal, TextAlignmentOptions.Center,
+            var title = SundownFonts.Poster(NewText("Title", scene, 40, FontStyles.Normal, TextAlignmentOptions.Center,
                 new Vector2(0f, 0.72f), new Vector2(1f, 0.8f), Vector2.zero, Vector2.zero));
             title.text = "THE BUNKER";
-            title.color = UITheme.Cream;
 
             var groups = new System.Collections.Generic.List<CanvasGroup>();
             int inside = 0, outside = 0;
