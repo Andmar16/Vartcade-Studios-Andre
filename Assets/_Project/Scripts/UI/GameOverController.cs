@@ -260,7 +260,7 @@ namespace TDTS.UI
                 bool seated = players[i].isSeated;
                 float x = seated ? 0.5f + (inside++ - 1f) * 0.2f : 0.1f + outside++ * 0.13f;
                 float y = seated ? 0.3f : 0.12f;
-                Puppet puppet = Puppet.Create(scene, new Vector2(x, y), i + 1, seated ? 200f : 150f);
+                Puppet puppet = Puppet.Create(scene, new Vector2(x, y), i + 1, seated ? 200f : 150f, false, x < 0.45f); // left side looks in
                 var group = puppet.gameObject.AddComponent<CanvasGroup>();
                 group.alpha = 0f;
                 if (!seated)

@@ -34,6 +34,7 @@ namespace TDTS.UI
         {
             public readonly float x0, y0, x1, y1;
             public Rect4(float x0, float y0, float x1, float y1) { this.x0 = x0; this.y0 = y0; this.x1 = x1; this.y1 = y1; }
+            public static readonly Rect4 None = new Rect4(0f, 0f, 0f, 0f);
         }
 
         private class Variant
@@ -41,39 +42,65 @@ namespace TDTS.UI
             public readonly string key;
             public readonly float aspect; // width / height
             public readonly Color skin;   // for the eyelids
-            public readonly Rect4 torso, arm, head, eyeLeft, eyeRight; // eyes are inside the head box
+            public readonly Rect4 torso, arm, head, hairBack, eyeLeft, eyeRight; // eyes are inside the head box
 
-            public Variant(string key, float aspect, Color skin, Rect4 torso, Rect4 arm, Rect4 head, Rect4 eyeLeft, Rect4 eyeRight)
+            public Variant(string key, float aspect, Color skin, Rect4 torso, Rect4 arm, Rect4 head, Rect4 hairBack, Rect4 eyeLeft, Rect4 eyeRight)
             {
                 this.key = key; this.aspect = aspect; this.skin = skin;
-                this.torso = torso; this.arm = arm; this.head = head; this.eyeLeft = eyeLeft; this.eyeRight = eyeRight;
+                this.torso = torso; this.arm = arm; this.head = head; this.hairBack = hairBack; this.eyeLeft = eyeLeft; this.eyeRight = eyeRight;
             }
+
+            public bool HasHairBack => hairBack.x1 > hairBack.x0;
         }
 
+        // The cast, C1 to C6 (Docs/assets/characters/puppets): bigger heads use the big body, smaller heads the thin one.
+        // C1 and C4 have their long hair on its own layer (hairback) so it can sway behind the shoulders.
         private static readonly Variant[] Variants =
         {
-            new Variant("big_f", 0.5844f, new Color32(198, 138, 94, 255),
-                new Rect4(0.0000f, 0.0516f, 0.9728f, 0.5979f), new Rect4(0.6381f, 0.0000f, 1.0000f, 0.4788f), new Rect4(0.1038f, 0.4879f, 0.8833f, 1.0000f),
-                new Rect4(0.1647f, 0.4919f, 0.2546f, 0.5141f), new Rect4(0.4393f, 0.4770f, 0.5790f, 0.4978f)),
-            new Variant("big_m", 0.5719f, new Color32(232, 176, 134, 255),
-                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.0682f, 0.5064f, 0.7824f, 1.0000f),
-                new Rect4(0.2128f, 0.4173f, 0.3339f, 0.4476f), new Rect4(0.5303f, 0.4355f, 0.6165f, 0.4522f)),
-            new Variant("thin_f", 0.4734f, new Color32(185, 130, 86, 255),
-                new Rect4(0.0372f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6570f, 0.0000f, 0.9644f, 0.5019f), new Rect4(0.0000f, 0.5548f, 0.8900f, 1.0000f),
-                new Rect4(0.2218f, 0.4182f, 0.3127f, 0.4630f), new Rect4(0.4891f, 0.4182f, 0.5927f, 0.4458f)),
-            new Variant("thin_m", 0.4500f, new Color32(141, 90, 59, 255),
-                new Rect4(0.0000f, 0.0189f, 1.0000f, 0.6868f), new Rect4(0.6807f, 0.0000f, 1.0000f, 0.4955f), new Rect4(0.0689f, 0.5651f, 0.7261f, 1.0000f),
-                new Rect4(0.1023f, 0.5270f, 0.2353f, 0.5878f), new Rect4(0.4092f, 0.5443f, 0.6036f, 0.5965f)),
+            new Variant("c1", 0.5844f, new Color32(198, 138, 94, 255),
+                new Rect4(0.0000f, 0.0516f, 0.9728f, 0.5979f), new Rect4(0.6381f, 0.0000f, 1.0000f, 0.4788f), new Rect4(0.1038f, 0.4879f, 0.8833f, 1.0000f), new Rect4(0.1038f, 0.4347f, 0.8841f, 1.0000f),
+                new Rect4(0.1581f, 0.4844f, 0.2779f, 0.5467f), new Rect4(0.4243f, 0.4696f, 0.5940f, 0.5289f)),
+            new Variant("c2", 0.5719f, new Color32(232, 176, 134, 255),
+                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.0682f, 0.5064f, 0.7824f, 1.0000f), Rect4.None,
+                new Rect4(0.1872f, 0.4082f, 0.3523f, 0.4689f), new Rect4(0.4771f, 0.4234f, 0.6459f, 0.4841f)),
+            new Variant("c3", 0.5719f, new Color32(160, 104, 66, 255),
+                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.1018f, 0.5064f, 0.7488f, 1.0000f), Rect4.None,
+                new Rect4(0.0713f, 0.4626f, 0.1874f, 0.5084f), new Rect4(0.3401f, 0.4626f, 0.5397f, 0.5145f)),
+            new Variant("c4", 0.4734f, new Color32(185, 130, 86, 255),
+                new Rect4(0.0372f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6570f, 0.0000f, 0.9644f, 0.5019f), new Rect4(0.0000f, 0.5548f, 0.8900f, 1.0000f), new Rect4(0.0000f, 0.5548f, 0.8902f, 1.0000f),
+                new Rect4(0.1855f, 0.4079f, 0.3400f, 0.5043f), new Rect4(0.4582f, 0.4079f, 0.6364f, 0.4871f)),
+            new Variant("c5", 0.4500f, new Color32(141, 90, 59, 255),
+                new Rect4(0.0000f, 0.0189f, 1.0000f, 0.6868f), new Rect4(0.6807f, 0.0000f, 1.0000f, 0.4955f), new Rect4(0.0689f, 0.5651f, 0.7261f, 1.0000f), Rect4.None,
+                new Rect4(0.0946f, 0.5096f, 0.2430f, 0.5722f), new Rect4(0.4015f, 0.5443f, 0.5934f, 0.5983f)),
+            new Variant("c6", 0.4558f, new Color32(214, 160, 118, 255),
+                new Rect4(0.0000f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6437f, 0.0000f, 0.9630f, 0.5019f), new Rect4(0.0142f, 0.5548f, 0.8329f, 1.0000f), Rect4.None,
+                new Rect4(0.2095f, 0.3496f, 0.3643f, 0.4290f), new Rect4(0.5009f, 0.3405f, 0.6648f, 0.4137f)),
         };
 
         private bool drawn;            // built from the team's art rather than shapes
         private GameObject lidLeft, lidRight;
+        private RectTransform hairBack;
+        private bool mirrored;
 
-        /// <summary>Big seats use the big body, the others the thin one; the two characters of each body alternate.</summary>
+        // Seat 1 gets C1, seat 2 C4, and so on, so big and thin bodies alternate round the table
+        private static readonly int[] SeatOrder = { 0, 3, 1, 4, 2, 5 };
+
+        /// <summary>Each seat number has its own character from the cast.</summary>
         private static Variant PickVariant(int seat, bool big)
         {
-            int second = ((seat - 1) / 2) % 2; // seats 1-2 first look, 3-4 second, 5-6 first again
-            return Variants[(big ? 0 : 2) + second];
+            return Variants[SeatOrder[((seat - 1) % 6 + 6) % 6]];
+        }
+
+        /// <summary>
+        /// Turns the puppet to face the other way (the art faces left). Used for seats on the left of
+        /// the table so they look in toward the middle. The seat number stays readable.
+        /// </summary>
+        public void FaceRight()
+        {
+            mirrored = true;
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+            foreach (TMP_Text text in GetComponentsInChildren<TMP_Text>(true))
+                text.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
         private static Sprite PartSprite(Variant v, string part) => Resources.Load<Sprite>($"Puppets/{v.key}_{part}");
@@ -89,6 +116,10 @@ namespace TDTS.UI
 
         /// <summary>Builds a puppet standing on its feet at the given anchor point. Height is in reference pixels.</summary>
         public static Puppet Create(Transform parent, Vector2 anchor, int seat, float height = 300f, bool big = false)
+            => Create(parent, anchor, seat, height, big, false);
+
+        /// <summary>As above; faceRight turns the puppet to look the other way (seats on the left of the table).</summary>
+        public static Puppet Create(Transform parent, Vector2 anchor, int seat, float height, bool big, bool faceRight)
         {
             var root = NewRect($"Puppet{seat:00}", parent, anchor, anchor, Vector2.zero, Vector2.zero);
             root.pivot = new Vector2(0.5f, 0f);
@@ -104,6 +135,7 @@ namespace TDTS.UI
                 puppet.BuildDrawn(root, seat, height, variant, torso, arm, head);
             }
             else puppet.Build(root, seat, width, height, big);
+            if (faceRight) puppet.FaceRight();
             return puppet;
         }
 
@@ -146,6 +178,15 @@ namespace TDTS.UI
         {
             drawn = true;
             phase = seat * 1.7f;
+
+            // Long hair hangs behind the shoulders; it turns about the same neck point as the head
+            Sprite hair = v.HasHairBack ? PartSprite(v, "hairback") : null;
+            if (hair != null)
+            {
+                float px = v.head.x0 + 0.5f * (v.head.x1 - v.head.x0), py = v.head.y0 + 0.06f * (v.head.y1 - v.head.y0);
+                hairBack = ArtPart(root, "HairBack", v.hairBack, hair,
+                    new Vector2((px - v.hairBack.x0) / (v.hairBack.x1 - v.hairBack.x0), (py - v.hairBack.y0) / (v.hairBack.y1 - v.hairBack.y0)));
+            }
 
             body = ArtPart(root, "Body", v.torso, torso, new Vector2(0.5f, 0f));
             // Zip seam and seat number, like the team's coloured jumpsuit draft
@@ -213,10 +254,18 @@ namespace TDTS.UI
             if (!still && !EyesClosed && Mouse.current != null)
             {
                 Vector2 screen = RectTransformUtility.WorldToScreenPoint(null, head.position);
-                tilt = Mathf.Clamp((Mouse.current.position.ReadValue().x - screen.x) / 400f, -1f, 1f) * -4f;
+                tilt = Mathf.Clamp((Mouse.current.position.ReadValue().x - screen.x) / 400f, -1f, 1f) * (mirrored ? 4f : -4f);
             }
             float z = Mathf.LerpAngle(head.localEulerAngles.z, tilt + breath * 0.6f, 1f - Mathf.Exp(-6f * Time.unscaledDeltaTime));
             head.localEulerAngles = new Vector3(0f, 0f, z);
+
+            // The long hair follows the head and swings a little behind it
+            if (hairBack != null)
+            {
+                hairBack.anchoredPosition = head.anchoredPosition;
+                float sway = still ? 0f : Mathf.Sin(t * 1.1f + phase) * 1.8f;
+                hairBack.localEulerAngles = new Vector3(0f, 0f, z + sway);
+            }
 
             // Now and then the arm lifts a little, as if checking a watch
             if (!still && t >= nextWatch)

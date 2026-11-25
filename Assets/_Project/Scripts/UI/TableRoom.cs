@@ -162,7 +162,8 @@ namespace TDTS.UI
         public Puppet SeatPuppet(int seatsAfterYou, int seatNumber)
         {
             float x = SeatX[Mathf.Clamp(seatsAfterYou, 1, 3)] / 1920f;
-            Puppet puppet = Puppet.Create(seats, new Vector2(x, 1f - (TableEdgeY + 60f) / 1080f), seatNumber, 300f, big: seatNumber % 2 == 0);
+            // The cast art faces left; whoever sits on the left of the table turns to look in toward the middle
+            Puppet puppet = Puppet.Create(seats, new Vector2(x, 1f - (TableEdgeY + 60f) / 1080f), seatNumber, 300f, seatNumber % 2 == 0, seatsAfterYou == 1);
             return puppet;
         }
 
