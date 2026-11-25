@@ -50,7 +50,7 @@ namespace TDTS.UI
             // Let a Rondo spin start, then wait for it and its banner to finish
             yield return new WaitForSeconds(0.1f);
             RondoDial rondo = FindFirstObjectByType<RondoDial>();
-            while ((rondo != null && rondo.IsAnnouncing) || GameObject.Find("RondoBanner") != null || GameObject.Find("MorningRecap") != null)
+            while ((rondo != null && rondo.IsAnnouncing) || GameObject.Find("RondoBanner") != null || GameObject.Find("MorningRecap") != null || GameObject.Find("PhaseCalendar") != null)
                 yield return null;
 
             // A skipped turn, or one that's already over, gets no popup

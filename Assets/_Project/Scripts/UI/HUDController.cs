@@ -48,6 +48,7 @@ namespace TDTS.UI
 
             Build();
             gameObject.AddComponent<TurnBanner>(); // "YOUR TURN" popup
+            gameObject.AddComponent<PhaseCalendar>(); // Day / Night card that tears away like a calendar page
             gameObject.AddComponent<TableHud>();   // wireframe v0.1: kinds tracker, portrait, waiting banner, blackout, morning recap
         }
 
