@@ -78,7 +78,7 @@ namespace TDTS.UI
             shadeImage.raycastTarget = false;
 
             BuildWindow();
-            BuildShelf();
+            if (!RoomDetails.TryBuild(room)) BuildShelf(); // the team-style props; the old shape shelf if they're missing
 
             // Opponents sit here, behind the table
             // The lamp's pool of light sits behind the seats, so it lights the wall, not the faces
