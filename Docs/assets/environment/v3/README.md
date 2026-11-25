@@ -41,3 +41,20 @@ Main menu, Dial + wheel, Room/Street (moving), states, props, pixel, overlays, c
   ellipse 400 x 510 centred at 260, 410 in the 520 x 720 frame). `plaque`: the name plate.
 - `shop`: TINDAHAN stall with 8 locked slots (no clothing yet).
 - `screen_frame`: 1920 x 1080 wooden frame with brass corners, inner shadow and a slight vignette; see-through middle.
+
+## In the game (Nov 26, v3.3)
+Approved by Andre and added to the branch. Everything falls back to the older code-drawn look if a sprite is missing.
+
+| Where | What | Code |
+|---|---|---|
+| `Resources/RoomV3` | 12 painted room backdrops (Day 1-3, 4-7, 8+, Night, 8 Rondo results) + table, lamp, fan blades, spider (day and night) | `TableRoom.BuildArtRoom` |
+| `Resources/StreetV3` | menu street + clouds, crows, laundry | `StreetBackdrop` |
+| `Resources/UI3` | paper buttons (9-sliced), mirror, plaque, shop, screen frame | `MainMenuController` (art mode) |
+| `Resources/Dial` | day/night porthole: disc, horizon, frame, tick | `DayNightDial` (top bar) |
+| `Resources/Wheel` | Rondo wheel face, two bulb rims, hub, pointer | `RondoDial.BuildArt` |
+| `Resources/Overlays` | OV7 paper, OV3 dusk, OV8 night (+ OV10 warm in code) | `ScreenOverlays`, Settings > Screen filters |
+| `Resources/Puppets` | cast parts with a paper edge; each part casts a hard paper shadow | `Puppet` |
+
+Layout changes: the table's far edge is now y = 650 (was 556), seats at x 520 / 960 / 1400, puppets 400 px tall
+(were 300), side seats turned slightly in. The positions of the separate pieces are in `RoomArtLayout.cs`,
+written by `src/export_game.py`. To re-export: `python3 export_game.py room|street|ui|dial|wheel|overlays`.

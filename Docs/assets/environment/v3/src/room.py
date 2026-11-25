@@ -156,10 +156,12 @@ def drawings(x, y):
     b += line([(x + 30, y + 162), (x + 90, y + 162)], 2, 1.0, "#5d7146") + f'<rect x="{x+48}" y="{y+94}" width="22" height="12" fill="#cfc6a0" opacity=".8"/></g>'
     return b
 
+NO_NUMBERS = False   # True when exporting for Unity: the game writes the day numbers itself
+
 def calendar(x, y, days_left):
     b = box(x, y, 128, 168, C["cream"], 2.4, 1.0) + box(x, y, 128, 44, C["brick"], 2.4, 1.0)
     b += text(x + 64, y + 30, "BOTIKA SILONG", 17, "#f4d65a")
-    b += text(x + 64, y + 128, str(days_left), 70, "#5a2420")
+    if not NO_NUMBERS: b += text(x + 64, y + 128, str(days_left), 70, "#5a2420")
     b += text(x + 64, y + 156, "ARAW NA LANG", 13, "#5a2420", font="Roboto", weight="bold")
     for i in range(5): b += f'<circle cx="{x+16+i*24}" cy="{y+4}" r="3.5" fill="#2a1c14"/>'
     b += line([(x + 64, y - 26), (x + 64, y)], 1.4) + f'<circle cx="{x+64}" cy="{y-28}" r="3" fill="#2a1c14"/>'
@@ -352,7 +354,8 @@ def crack(x, y):
 
 def daysclock(x, y, n):
     b = box(x, y, 120, 54, "#2b1e18", 2.4, 1.0) + f'<rect x="{x+8}" y="{y+8}" width="104" height="38" fill="#120808"/>'
-    b += ptext("ARAW", "#7a2b24", x + 14, y + 13, 2) + ptext(f"{n:02d}", "#ff4a3a", x + 60, y + 14, 5)
+    b += ptext("ARAW", "#7a2b24", x + 14, y + 13, 2)
+    if not NO_NUMBERS: b += ptext(f"{n:02d}", "#ff4a3a", x + 60, y + 14, 5)
     return b
 
 def gasmask(x, y):

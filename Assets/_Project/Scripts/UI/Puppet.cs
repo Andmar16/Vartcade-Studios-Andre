@@ -57,24 +57,24 @@ namespace TDTS.UI
         // C1 and C4 have their long hair on its own layer (hairback) so it can sway behind the shoulders.
         private static readonly Variant[] Variants =
         {
-            new Variant("c1", 0.5844f, new Color32(198, 138, 94, 255),
-                new Rect4(0.0000f, 0.0516f, 0.9728f, 0.5979f), new Rect4(0.6381f, 0.0000f, 1.0000f, 0.4788f), new Rect4(0.1038f, 0.4879f, 0.8833f, 1.0000f), new Rect4(0.1038f, 0.4347f, 0.8841f, 1.0000f),
-                new Rect4(0.1581f, 0.4844f, 0.2779f, 0.5467f), new Rect4(0.4243f, 0.4696f, 0.5940f, 0.5289f)),
-            new Variant("c2", 0.5719f, new Color32(232, 176, 134, 255),
-                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.0682f, 0.5064f, 0.7824f, 1.0000f), Rect4.None,
-                new Rect4(0.1872f, 0.4082f, 0.3523f, 0.4689f), new Rect4(0.4771f, 0.4234f, 0.6459f, 0.4841f)),
-            new Variant("c3", 0.5719f, new Color32(160, 104, 66, 255),
-                new Rect4(0.0000f, 0.0404f, 0.9817f, 0.5798f), new Rect4(0.6343f, 0.0000f, 1.0000f, 0.4727f), new Rect4(0.1018f, 0.5064f, 0.7488f, 1.0000f), Rect4.None,
-                new Rect4(0.0713f, 0.4626f, 0.1874f, 0.5084f), new Rect4(0.3401f, 0.4626f, 0.5397f, 0.5145f)),
-            new Variant("c4", 0.4734f, new Color32(185, 130, 86, 255),
-                new Rect4(0.0372f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6570f, 0.0000f, 0.9644f, 0.5019f), new Rect4(0.0000f, 0.5548f, 0.8900f, 1.0000f), new Rect4(0.0000f, 0.5548f, 0.8902f, 1.0000f),
-                new Rect4(0.1855f, 0.4079f, 0.3400f, 0.5043f), new Rect4(0.4582f, 0.4079f, 0.6364f, 0.4871f)),
-            new Variant("c5", 0.4500f, new Color32(141, 90, 59, 255),
-                new Rect4(0.0000f, 0.0189f, 1.0000f, 0.6868f), new Rect4(0.6807f, 0.0000f, 1.0000f, 0.4955f), new Rect4(0.0689f, 0.5651f, 0.7261f, 1.0000f), Rect4.None,
-                new Rect4(0.0946f, 0.5096f, 0.2430f, 0.5722f), new Rect4(0.4015f, 0.5443f, 0.5934f, 0.5983f)),
-            new Variant("c6", 0.4558f, new Color32(214, 160, 118, 255),
-                new Rect4(0.0000f, 0.0084f, 1.0000f, 0.6582f), new Rect4(0.6437f, 0.0000f, 0.9630f, 0.5019f), new Rect4(0.0142f, 0.5548f, 0.8329f, 1.0000f), Rect4.None,
-                new Rect4(0.2095f, 0.3496f, 0.3643f, 0.4290f), new Rect4(0.5009f, 0.3405f, 0.6648f, 0.4137f)),
+            new Variant("c1", 0.5908f, new Color32(198, 138, 94, 255),
+                new Rect4(0.0000f, 0.0508f, 0.9735f, 0.6041f), new Rect4(0.6215f, 0.0000f, 1.0000f, 0.4868f), new Rect4(0.1011f, 0.4804f, 0.8863f, 1.0000f), new Rect4(0.1011f, 0.4281f, 0.8871f, 1.0000f),
+                new Rect4(0.1696f, 0.4849f, 0.2853f, 0.5453f), new Rect4(0.4268f, 0.4705f, 0.5908f, 0.5280f)),
+            new Variant("c2", 0.5785f, new Color32(232, 176, 134, 255),
+                new Rect4(0.0000f, 0.0398f, 0.9821f, 0.5862f), new Rect4(0.6175f, 0.0000f, 1.0000f, 0.4808f), new Rect4(0.0663f, 0.4986f, 0.7882f, 1.0000f), Rect4.None,
+                new Rect4(0.1989f, 0.4111f, 0.3578f, 0.4699f), new Rect4(0.4779f, 0.4258f, 0.6404f, 0.4846f)),
+            new Variant("c3", 0.5785f, new Color32(160, 104, 66, 255),
+                new Rect4(0.0000f, 0.0398f, 0.9821f, 0.5862f), new Rect4(0.6175f, 0.0000f, 1.0000f, 0.4808f), new Rect4(0.0991f, 0.4986f, 0.7555f, 1.0000f), Rect4.None,
+                new Rect4(0.0889f, 0.4638f, 0.2002f, 0.5081f), new Rect4(0.3467f, 0.4638f, 0.5381f, 0.5141f)),
+            new Variant("c4", 0.4815f, new Color32(185, 130, 86, 255),
+                new Rect4(0.0360f, 0.0083f, 1.0000f, 0.6635f), new Rect4(0.6360f, 0.0000f, 0.9655f, 0.5096f), new Rect4(0.0000f, 0.5463f, 0.8935f, 1.0000f), new Rect4(0.0000f, 0.5463f, 0.8937f, 1.0000f),
+                new Rect4(0.1939f, 0.4125f, 0.3434f, 0.5059f), new Rect4(0.4577f, 0.4125f, 0.6301f, 0.4892f)),
+            new Variant("c5", 0.4585f, new Color32(141, 90, 59, 255),
+                new Rect4(0.0000f, 0.0186f, 1.0000f, 0.6917f), new Rect4(0.6578f, 0.0000f, 1.0000f, 0.5032f), new Rect4(0.0666f, 0.5564f, 0.7352f, 1.0000f), Rect4.None,
+                new Rect4(0.1153f, 0.5092f, 0.2561f, 0.5696f), new Rect4(0.4066f, 0.5428f, 0.5886f, 0.5948f)),
+            new Variant("c6", 0.4642f, new Color32(214, 160, 118, 255),
+                new Rect4(0.0000f, 0.0083f, 1.0000f, 0.6635f), new Rect4(0.6224f, 0.0000f, 0.9643f, 0.5096f), new Rect4(0.0137f, 0.5463f, 0.8384f, 1.0000f), Rect4.None,
+                new Rect4(0.2213f, 0.3560f, 0.3698f, 0.4329f), new Rect4(0.5009f, 0.3471f, 0.6581f, 0.4181f)),
         };
 
         private bool drawn;            // built from the team's art rather than shapes
@@ -213,7 +213,21 @@ namespace TDTS.UI
             Image image = rect.gameObject.AddComponent<Image>();
             image.sprite = sprite;
             image.raycastTarget = false;
+            // Paper cut-out look: each part casts a soft dark copy of itself down and to the side
+            var shadow = rect.gameObject.AddComponent<Shadow>();
+            shadow.effectColor = new Color(0.05f, 0.03f, 0.02f, 0.38f);
+            shadow.effectDistance = new Vector2(9f, -9f);
             return rect;
+        }
+
+        /// <summary>
+        /// Paper puppets seated at the side of the table turn a little toward the middle: the cut-out is
+        /// squashed sideways (amount 0..1), like a card seen at an angle.
+        /// </summary>
+        public void Turn(float amount)
+        {
+            Vector3 s = transform.localScale;
+            transform.localScale = new Vector3(s.x * (1f - 0.08f * Mathf.Clamp01(amount)), s.y, s.z);
         }
 
         /// <summary>A skin-coloured eyelid with a dark lash line, shown over one eye when it closes.</summary>

@@ -140,7 +140,7 @@ namespace TDTS.UI
         public static GameObject Settings(Transform canvas, Action onClose = null)
         {
             RectTransform overlay = Overlay("Settings", canvas);
-            var panel = NewPanel("Panel", overlay, new Vector2(-420f, -352f), new Vector2(420f, 352f));
+            var panel = NewPanel("Panel", overlay, new Vector2(-420f, -404f), new Vector2(420f, 404f));
 
             var title = SundownFonts.Poster(NewText("Title", panel, 56, FontStyles.Normal, TextAlignmentOptions.Left,
                 new Vector2(0f, 1f), Vector2.one, new Vector2(56f, -120f), new Vector2(-56f, -36f)));
@@ -170,6 +170,9 @@ namespace TDTS.UI
 
             Segmented(Row("Reduce motion", "Still backgrounds, no flicker"), new[] { "On", "Off" },
                 GameSettings.ReduceMotion ? 0 : 1, i => GameSettings.ReduceMotion = i == 0);
+
+            Segmented(Row("Screen filters", "Warm tint, paper, dusk and night"), new[] { "All", "Light", "Off" },
+                (int)GameSettings.ScreenFilters, i => GameSettings.ScreenFilters = (GameSettings.Filters)i);
 
             var done = NewRect("Done", panel, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-296f, 36f), new Vector2(-56f, 100f));
             MakeButton(done, "Done", AccentColor, () => Close(overlay, onClose), 24);
