@@ -1,0 +1,8 @@
+WHAT GOES HERE
+Rubber hose style examples (1920s-30s cartoons): bendy limbs, pie-cut eyes, white gloves. For style study only.
+
+ONE LINE PER FILE (what you like about it):
+filename.png - source (game / artist / link) - what to take from it
+
+Example:
+05a_60Seconds_shelf-clutter_01.png - 60 Seconds! - how crowded the shelf feels, cans stacked crooked

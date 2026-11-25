@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Sky Top",
+    "hex": "#0B0E1A",
+    "use": "Backgrounds only"
+  },
+  {
+    "name": "Sky Mid",
+    "hex": "#1A1C33",
+    "use": "Backgrounds, card backs"
+  },
+  {
+    "name": "Sky Glow",
+    "hex": "#6B331E",
+    "use": "Horizon glow, card back frame"
+  },
+  {
+    "name": "Sun",
+    "hex": "#F28C3A",
+    "use": "Sun and warm light; not for text"
+  },
+  {
+    "name": "Charcoal",
+    "hex": "#13191D",
+    "use": "Panels, outlines, dark text"
+  },
+  {
+    "name": "Brick",
+    "hex": "#B53B32",
+    "use": "Primary buttons; cream text 7:1"
+  },
+  {
+    "name": "Gold",
+    "hex": "#E5A836",
+    "use": "Your turn, highlights"
+  },
+  {
+    "name": "Orange",
+    "hex": "#D9822B",
+    "use": "Day phase, Rondo, warnings; charcoal text"
+  },
+  {
+    "name": "Dark Red",
+    "hex": "#632B29",
+    "use": "Danger, losses, Doomsday"
+  },
+  {
+    "name": "Teal",
+    "hex": "#4E7C86",
+    "use": "Night, jumpsuits; cream text large only (3.8:1)"
+  },
+  {
+    "name": "Teal Dark",
+    "hex": "#3B5F67",
+    "use": "Night buttons with small cream text (5.6:1)"
+  },
+  {
+    "name": "Cream",
+    "hex": "#F4E9D8",
+    "use": "Text on dark, card faces"
+  }
+]

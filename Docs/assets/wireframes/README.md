@@ -14,7 +14,7 @@ Colored wireframes for the Unity version, made so the development team (Chua, Es
 
 ## Folder structure
 ```
-Docs/Wireframes/
+Docs/assets/wireframes/
 ├── README.md            (this file)
 └── v0.1/
     ├── WIREFRAMES.md    (all developer notes, board by board, with images)

@@ -1,0 +1,23 @@
+TEN DAYS TO SUNDOWN - REFERENCE PACK
+
+1. Put each picture or clip in the folder that matches what it shows.
+   If it fits two folders, pick the one you care about most.
+2. Name files like this:  <folder code>_<source>_<what>_<number>
+     05a_60Seconds_shelf-clutter_01.png
+     07a_rubberhose_walk-cycle_01.mp4
+     99_Villa_thin-body-eyes_01.png
+3. In each folder, write one line per file in _NOTES.txt saying WHAT you like
+   about it (the colors? the line weight? the layout?). This matters more
+   than the picture itself.
+4. Pictures: PNG or JPG. Screenshots are fine.
+5. Videos: MP4, under 30 seconds each, only the part that matters.
+   Claude looks at videos as still frames (several per second), not sound,
+   so for timing say "watch 0:04 to 0:07" in _NOTES.txt.
+   YouTube links go in _NOTES.txt; Claude cannot download them.
+6. Empty folders are fine. Delete nothing.
+7. Zip the whole TDTS_References folder. If the upload is too big, zip each
+   numbered folder separately and send them one by one.
+
+RULE: everything in 01 to 10 is for inspiration only. Nothing from those
+folders gets traced or copied into the game. Only 99_Our_Own_Art is used
+as source art.

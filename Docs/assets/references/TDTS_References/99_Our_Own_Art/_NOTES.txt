@@ -1,0 +1,16 @@
+WHAT GOES HERE
+OUR team's own drawings only (Barros, Villa, others). These are the ONLY files
+Claude may trace, vectorize or turn into game art.
+
+  cards_fronts/       card illustrations: 4 Supply kinds, 5 Morning cards
+  cards_backs/        Supply, Trash, Flashlight, Night Skip, Day Skip, Bunker Key back
+  characters_parts/   puppet parts per the C15 spec (same canvas, line and color separate)
+  environments/       bunker room, street, lobby, night sketches
+  brand/              Silong Shelters sun mascot and poster sketches
+
+Best quality for tracing: the largest size you have (at least 1500 px tall),
+PNG, plain or transparent background, line art and color as separate files
+if you have them. Phone photos of paper work too; shoot flat, in daylight.
+
+ONE LINE PER FILE:
+filename.png - artist - what it is - anything to keep exactly (e.g. "keep the wobbly lines")
